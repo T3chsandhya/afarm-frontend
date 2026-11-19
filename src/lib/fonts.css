@@ -1,0 +1,41 @@
+/* Self-hosted fonts — no fonts.gstatic.com fetch during next build (EC2 deploy). */
+@import '@fontsource/plus-jakarta-sans/400.css';
+@import '@fontsource/plus-jakarta-sans/500.css';
+@import '@fontsource/plus-jakarta-sans/600.css';
+@import '@fontsource/plus-jakarta-sans/700.css';
+@import '@fontsource/plus-jakarta-sans/800.css';
+
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+
+@import '@fontsource/montserrat/400.css';
+@import '@fontsource/montserrat/500.css';
+@import '@fontsource/montserrat/600.css';
+@import '@fontsource/montserrat/700.css';
+
+@import '@fontsource/outfit/400.css';
+@import '@fontsource/outfit/500.css';
+@import '@fontsource/outfit/600.css';
+@import '@fontsource/outfit/700.css';
+
+@import '@fontsource/playfair-display/400.css';
+@import '@fontsource/playfair-display/500.css';
+@import '@fontsource/playfair-display/600.css';
+@import '@fontsource/playfair-display/700.css';
+
+@import '@fontsource/dm-serif-display/400.css';
+
+:root {
+  --font-sans: 'Plus Jakarta Sans';
+  --font-poppins: 'Poppins';
+  --font-montserrat: 'Montserrat';
+  --font-outfit: 'Outfit';
+  --font-playfair: 'Playfair Display';
+  --font-dm-serif: 'DM Serif Display';
+}
+
+.afarm-font-body {
+  font-family: var(--font-family-sans);
+}
