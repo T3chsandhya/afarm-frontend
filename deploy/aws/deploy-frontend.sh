@@ -13,12 +13,9 @@ if [[ ! -f .env.production ]]; then
   exit 1
 fi
 
-# Install before NODE_ENV=production (Next build needs devDependencies e.g. eslint-config-next).
-# --omit=optional avoids wasm32/@emnapi lock mismatches between npm versions on EC2 vs lockfile.
-if ! npm ci --omit=optional --no-audit --no-fund; then
-  echo "npm ci failed; syncing with npm install …" >&2
-  npm install --omit=optional --no-audit --no-fund
-fi
+# npm ci breaks on EC2 when lockfile was built on a different npm (optional @emnapi tree).
+# .npmrc sets optional=false; npm install refreshes deps without failing on lock skew.
+npm install --no-audit --no-fund
 
 export NODE_ENV=production
 npm run build
