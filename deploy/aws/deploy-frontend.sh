@@ -13,8 +13,14 @@ if [[ ! -f .env.production ]]; then
   exit 1
 fi
 
+# Install before NODE_ENV=production (Next build needs devDependencies e.g. eslint-config-next).
+# --omit=optional avoids wasm32/@emnapi lock mismatches between npm versions on EC2 vs lockfile.
+if ! npm ci --omit=optional --no-audit --no-fund; then
+  echo "npm ci failed; syncing with npm install …" >&2
+  npm install --omit=optional --no-audit --no-fund
+fi
+
 export NODE_ENV=production
-npm ci
 npm run build
 
 if command -v systemctl >/dev/null 2>&1; then
