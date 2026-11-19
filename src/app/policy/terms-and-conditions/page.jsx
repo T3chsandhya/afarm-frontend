@@ -2,12 +2,11 @@ import styles from './terms.module.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import PageHeroBanner from '@/components/PageHeroBanner/PageHeroBanner';
-import { CONTACT, pageMetadata } from '@/lib/seo';
+import { BRAND, BRAND_SHORT, CONTACT, SITE_URL, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Terms & Conditions | ChairDekho',
-  description:
-    'Read the terms and conditions governing your use of the ChairDekho website and purchases.',
+  title: `Terms & Conditions | ${BRAND_SHORT}`,
+  description: `Read the terms and conditions governing your use of the ${BRAND_SHORT} website and purchases.`,
   path: '/policy/terms-and-conditions',
 });
 
@@ -16,8 +15,9 @@ export default function TermsAndConditionsPage() {
     <div className={styles.container}>
       <Header />
       <PageHeroBanner
+        variant="simple"
         title="Terms & Conditions"
-        subtitle="Last updated: September 2026"
+        subtitle="Last updated: November 2026"
         backLabel="Back to Home"
         backHref="/"
       />
@@ -26,7 +26,7 @@ export default function TermsAndConditionsPage() {
         <div className={styles.content}>
           <h2 className={styles.sectionHeading}>1. Acceptance of Terms</h2>
           <p className={styles.paragraph}>
-            By accessing, browsing, or purchasing from the ChairDekho website (chairdekho.in), you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. If you do not agree to these terms, please refrain from using our website or services.
+            By accessing, browsing, or purchasing from the {BRAND_SHORT} website ({SITE_URL.replace(/^https?:\/\//, '')}), you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. If you do not agree to these terms, please refrain from using our website or services.
           </p>
 
           <h2 className={styles.sectionHeading}>2. Eligibility</h2>
@@ -36,15 +36,15 @@ export default function TermsAndConditionsPage() {
 
           <h2 className={styles.sectionHeading}>3. Account Responsibilities</h2>
           <p className={styles.paragraph}>
-            If you create an account on our website, you are responsible for maintaining the confidentiality of your login credentials. You agree to notify us immediately of any unauthorised access to your account. ChairDekho is not liable for any loss or damage arising from your failure to safeguard your account information.
+            If you create an account on our website, you are responsible for maintaining the confidentiality of your login credentials. You agree to notify us immediately of any unauthorised access to your account. {BRAND_SHORT} is not liable for any loss or damage arising from your failure to safeguard your account information.
           </p>
 
           <h2 className={styles.sectionHeading}>4. Products & Pricing</h2>
           <p className={styles.paragraph}>
-            We make every effort to display product descriptions, images, and pricing as accurately as possible. However, we do not warrant that product specifications, images, or prices are free from errors. All prices are listed in Indian Rupees (₹) and are inclusive of applicable taxes unless stated otherwise.
+            We make every effort to display product descriptions, images, and pricing as accurately as possible. Handcrafted items may show natural variation in colour, size, and finish. All prices are listed in Indian Rupees (₹) and are inclusive of applicable taxes unless stated otherwise.
           </p>
           <p className={styles.paragraph}>
-            ChairDekho reserves the right to modify product pricing, discontinue products, or correct any errors at any time without prior notice. In the event of a pricing error after your order has been placed, we will notify you and offer the option to proceed at the correct price or cancel the order.
+            {BRAND} reserves the right to modify product pricing, discontinue products, or correct any errors at any time without prior notice. In the event of a pricing error after your order has been placed, we will notify you and offer the option to proceed at the correct price or cancel the order.
           </p>
 
           <h2 className={styles.sectionHeading}>5. Orders & Cancellations</h2>
@@ -57,22 +57,22 @@ export default function TermsAndConditionsPage() {
 
           <h2 className={styles.sectionHeading}>6. Payment Terms</h2>
           <p className={styles.paragraph}>
-            All payments are processed through secure, PCI-DSS compliant payment gateways. We accept credit/debit cards, UPI, net banking, and Cash on Delivery. Full payment must be received before dispatch for prepaid orders. ChairDekho does not store your card or banking details on its servers.
+            All payments are processed through secure, PCI-DSS compliant payment gateways. We accept credit/debit cards, UPI, net banking, and Cash on Delivery where available. Full payment must be received before dispatch for prepaid orders. {BRAND_SHORT} does not store your card or banking details on its servers.
           </p>
 
           <h2 className={styles.sectionHeading}>7. Intellectual Property</h2>
           <p className={styles.paragraph}>
-            All content on the ChairDekho website — including but not limited to text, graphics, logos, images, product photographs, and software — is the property of ChairDekho by PrimeCraft and is protected by applicable intellectual property laws. You may not reproduce, distribute, or create derivative works from any content without our prior written consent.
+            All content on this website — including text, graphics, logos, images, product photographs, and software — is the property of {BRAND} and is protected by applicable intellectual property laws. Traditional designs remain the cultural heritage of the artisan communities we work with. You may not reproduce, distribute, or create derivative works from any content without our prior written consent.
           </p>
 
           <h2 className={styles.sectionHeading}>8. Limitation of Liability</h2>
           <p className={styles.paragraph}>
-            To the fullest extent permitted by law, ChairDekho shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our website or products. Our total liability for any claim related to a purchase shall not exceed the purchase price of the product in question.
+            To the fullest extent permitted by law, {BRAND_SHORT} shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our website or products. Our total liability for any claim related to a purchase shall not exceed the purchase price of the product in question.
           </p>
 
           <h2 className={styles.sectionHeading}>9. Governing Law & Jurisdiction</h2>
           <p className={styles.paragraph}>
-            These Terms and Conditions are governed by and construed in accordance with the laws of India. Any disputes arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts in Palghar, Maharashtra, India.
+            These Terms and Conditions are governed by and construed in accordance with the laws of India. Any disputes arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts in Maharashtra, India.
           </p>
 
           <h2 className={styles.sectionHeading}>10. Contact Information</h2>
@@ -80,10 +80,10 @@ export default function TermsAndConditionsPage() {
             For any questions or concerns regarding these Terms and Conditions, please reach out to us:
           </p>
           <ul className={styles.list}>
-            <li><strong>Email:</strong> brjangu29@gmail.com</li>
-            <li><strong>Phone:</strong> +91 96991 64131</li>
-            <li><strong>Address:</strong> ChairDekho by PrimeCraft, Umadevi Mandir, Umrale, Samel Pada, Nalasopara West, Vasai-Virar, Maharashtra 401203</li>
-            <li><strong>GST:</strong> {CONTACT.gstin}</li>
+            <li><strong>Email:</strong> {CONTACT.email}</li>
+            <li><strong>Phone:</strong> {CONTACT.phone}</li>
+            <li><strong>Address:</strong> {CONTACT.address}</li>
+            {CONTACT.gstin ? <li><strong>GST:</strong> {CONTACT.gstin}</li> : null}
           </ul>
         </div>
       </main>

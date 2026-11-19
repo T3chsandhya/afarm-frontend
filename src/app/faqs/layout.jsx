@@ -1,9 +1,9 @@
-import { pageMetadata } from '@/lib/seo';
+import { BRAND_SHORT, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'FAQs | ChairDekho',
+  title: `FAQs | ${BRAND_SHORT}`,
   description:
-    'Answers to common questions about buying chairs from ChairDekho – orders, delivery in Vasai Virar, bulk orders, returns, payments and chair care.',
+    'Answers about ordering farm-direct staples from AFARM — Maharashtra FPO collective, shipping across India, payments, returns, and product care.',
   path: '/faqs',
 });
 

@@ -296,6 +296,72 @@
   line-height: 1.4;
 }
 
+.shiprocketBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sellerShipRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.sellerShipActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shipBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid #155d27;
+  background: #155d27;
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.shipBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.shipBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #155d27;
+}
+
+.trackLink {
+  color: inherit;
+  display: inline-flex;
+}
+
+.spin {
+  animation: orderSpin 0.8s linear infinite;
+}
+
+@keyframes orderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 640px) {
   .detailGrid {
     grid-template-columns: 1fr;

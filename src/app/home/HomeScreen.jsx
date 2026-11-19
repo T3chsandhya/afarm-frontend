@@ -3,11 +3,10 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import {
   HomeBanner,
+  MobileHeroIntro,
   CategoryShowcase,
   ProductShowcase,
   WhyChooseUs,
-  ReviewsShowcase,
-  GoogleReviews,
   WhoWeAre,
   CategoryMarquee,
 } from './components';
@@ -15,16 +14,17 @@ import {
 export default function HomeScreen() {
   return (
     <div className={styles.container}>
-      <Header />
-      <main className={styles.main}>
+      <div className={styles.homeTop}>
+        <Header />
         <HomeBanner />
+      </div>
+      <MobileHeroIntro />
+      <main className={styles.main}>
         <CategoryShowcase />
         <ProductShowcase />
         <WhyChooseUs />
-        <ReviewsShowcase />
         <WhoWeAre />
         <CategoryMarquee />
-        <GoogleReviews />
       </main>
       <Footer />
     </div>

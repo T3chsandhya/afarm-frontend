@@ -2,14 +2,20 @@ import { Suspense } from 'react';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import JsonLd from '@/components/Seo/JsonLd';
-import { buildBreadcrumbJsonLd, buildCategorySeo, fetchApi, pageMetadata } from '@/lib/seo';
+import {
+  BRAND_SHORT,
+  COLLECTIVE_NAME,
+  buildBreadcrumbJsonLd,
+  buildCategorySeo,
+  fetchApi,
+  pageMetadata,
+} from '@/lib/seo';
 import CategoryMarquee from '@/app/home/components/CategoryMarquee';
 import ShopScreen from './components/ShopScreen';
 import styles from './shop.module.css';
 
-const SHOP_TITLE = 'Shop All Types of Chairs Online in Vasai Virar | ChairDekho';
-const SHOP_DESCRIPTION =
-  'Browse plastic, arm, armless, dining, garden, office and kids chairs and stools at affordable prices. Fast delivery in Vasai, Virar & Nalasopara. Cash on delivery.';
+const SHOP_TITLE = `Shop Farm-Direct Staples & Produce | ${BRAND_SHORT}`;
+const SHOP_DESCRIPTION = `Browse seasonal harvests and farm-direct groceries from ${COLLECTIVE_NAME} in Maharashtra. Pan-India delivery. Secure checkout and COD where available.`;
 
 async function findCategory(searchParams) {
   const slug = typeof searchParams?.category === 'string' ? searchParams.category.trim() : '';

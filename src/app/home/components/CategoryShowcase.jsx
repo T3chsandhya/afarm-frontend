@@ -86,9 +86,9 @@ export default function CategoryShowcase() {
   return (
     <section className={`${styles.section} ${styles.categorySection}`}>
       <div className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>SHOP CHAIRS BY TYPE</h2>
+        <h2 className={styles.sectionTitle}>SHOP BY COLLECTION</h2>
         <div className={styles.sectionTitleRow}>
-          <p className={styles.sectionSubtitle}>The right chair for every space</p>
+          <p className={styles.sectionSubtitle}>Discover farm-direct staples from Maharashtra FPOs</p>
           <Link href="/shop" className={styles.sectionLink}>
             View All <ArrowRight size={16} />
           </Link>

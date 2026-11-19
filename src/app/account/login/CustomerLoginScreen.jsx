@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -11,6 +10,7 @@ import styles from './login.module.css';
 
 const OTP_LENGTH = 4;
 const RESEND_SECONDS = 30;
+const IS_LOCAL_DEV = process.env.NODE_ENV === 'development';
 
 function digitsOnly(value) {
   return String(value || '').replace(/\D/g, '');
@@ -130,7 +130,7 @@ export default function CustomerLoginScreen() {
   };
 
   const finishLogin = (isNew) => {
-    toast.success(isNew ? 'Welcome to ChairDekho!' : 'Logged in');
+    toast.success(isNew ? 'Welcome!' : 'Logged in');
     router.replace(safeNext);
   };
 
@@ -193,147 +193,159 @@ export default function CustomerLoginScreen() {
     name: { title: 'Almost done', subtitle: 'Tell us your name to finish setting up' },
   }[step];
 
+  const brandBlock = (
+    <div className={styles.brandInner}>
+      <p className={styles.brandTitle}>AFARM</p>
+      <div className={styles.collectiveRow}>
+        <span className={styles.collectiveLine} aria-hidden="true" />
+        <span className={styles.collectiveLabel}>Collective</span>
+        <span className={styles.collectiveLine} aria-hidden="true" />
+      </div>
+      <div className={styles.beadDivider} aria-hidden="true" />
+      <p className={styles.brandTagline}>Crafted by Tradition, Worn by the World</p>
+    </div>
+  );
+
+  const loginForm = checkingAuth ? (
+    <p className={styles.subtitle}>Loading…</p>
+  ) : (
+    <>
+      <h1 className={styles.title}>{heading.title}</h1>
+      <p className={styles.subtitle}>{heading.subtitle}</p>
+
+      {step === 'phone' && (
+        <form className={styles.form} onSubmit={handleSendOtp}>
+          <label className={styles.label} htmlFor="login-phone">
+            Mobile Number
+          </label>
+          <div className={styles.phoneRow}>
+            <span className={styles.phonePrefix}>+91</span>
+            <input
+              id="login-phone"
+              type="tel"
+              inputMode="numeric"
+              className={styles.phoneInput}
+              placeholder="10-digit mobile number"
+              value={phone}
+              onChange={(e) => setPhone(digitsOnly(e.target.value).slice(0, 10))}
+              autoComplete="tel-national"
+              autoFocus
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className={styles.submitBtn}
+            disabled={loading || mobile.length !== 10}
+          >
+            {loading ? 'Sending OTP…' : 'Send OTP'}
+          </button>
+        </form>
+      )}
+
+      {step === 'otp' && (
+        <form className={styles.form} onSubmit={handleVerifyOtp}>
+          <span className={styles.label} id="login-otp-label">
+            Enter OTP
+          </span>
+          <div
+            className={styles.otpBoxes}
+            role="group"
+            aria-labelledby="login-otp-label"
+            onPaste={handleOtpPaste}
+          >
+            {otpDigits.map((digit, index) => (
+              <input
+                key={index}
+                ref={(el) => {
+                  otpRefs.current[index] = el;
+                }}
+                type="text"
+                inputMode="numeric"
+                autoComplete={index === 0 ? 'one-time-code' : 'off'}
+                maxLength={1}
+                className={styles.otpBox}
+                value={digit}
+                onChange={(e) => handleOtpChange(index, e.target.value)}
+                onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                aria-label={`Digit ${index + 1}`}
+              />
+            ))}
+          </div>
+          {IS_LOCAL_DEV && (
+            <p className={styles.devOtpHint}>
+              Local development: after sending OTP, enter <strong>1234</strong>.
+            </p>
+          )}
+          <button
+            type="submit"
+            className={styles.submitBtn}
+            disabled={loading || otp.length !== OTP_LENGTH}
+          >
+            {loading ? 'Verifying…' : 'Verify OTP'}
+          </button>
+          <div className={styles.otpActions}>
+            <button type="button" className={styles.textBtn} onClick={changeNumber}>
+              Change number
+            </button>
+            <button
+              type="button"
+              className={styles.textBtn}
+              onClick={handleResend}
+              disabled={resendIn > 0 || loading}
+            >
+              {resendIn > 0 ? `Resend in ${resendIn}s` : 'Resend OTP'}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {step === 'name' && (
+        <form className={styles.form} onSubmit={handleSubmitName}>
+          <label className={styles.label} htmlFor="login-name">
+            Full Name
+          </label>
+          <input
+            id="login-name"
+            ref={nameRef}
+            type="text"
+            className={styles.input}
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            autoComplete="name"
+            required
+          />
+          <button
+            type="submit"
+            className={styles.submitBtn}
+            disabled={loading || !name.trim()}
+          >
+            {loading ? 'Please wait…' : 'Continue'}
+          </button>
+        </form>
+      )}
+
+      <p className={styles.legalNote}>
+        By continuing, you agree to our{' '}
+        <Link href="/policy/terms-and-conditions">Terms</Link> and{' '}
+        <Link href="/policy/privacy-policy">Privacy Policy</Link>.
+      </p>
+    </>
+  );
+
   return (
     <div className={styles.page}>
-      <div className={styles.hero}>
-        <Image
-          src="/images/login/chairdekhohero1.webp"
-          alt="ChairDekho chairs"
-          width={1600}
-          height={600}
-          priority
-          sizes="(max-width: 960px) 100vw, 960px"
-          className={styles.heroImage}
-        />
-        <Link href="/" className={styles.backLink} aria-label="Back to store">
-          <ArrowLeft size={18} strokeWidth={1.9} />
-        </Link>
+      <Link href="/" className={styles.backLink} aria-label="Back to store">
+        <ArrowLeft size={18} strokeWidth={1.9} />
+      </Link>
+
+      <div className={styles.shell}>
+        <main className={styles.loginPanel}>
+          <div className={styles.loginInner}>{loginForm}</div>
+        </main>
+        <aside className={styles.brandPanel}>{brandBlock}</aside>
       </div>
-
-      <main className={styles.main}>
-        {checkingAuth ? (
-          <p className={styles.subtitle}>Loading…</p>
-        ) : (
-          <>
-            <h1 className={styles.title}>{heading.title}</h1>
-            <p className={styles.subtitle}>{heading.subtitle}</p>
-
-            {step === 'phone' && (
-              <form className={styles.form} onSubmit={handleSendOtp}>
-                <label className={styles.label} htmlFor="login-phone">
-                  Mobile Number
-                </label>
-                <div className={styles.phoneRow}>
-                  <span className={styles.phonePrefix}>+91</span>
-                  <input
-                    id="login-phone"
-                    type="tel"
-                    inputMode="numeric"
-                    className={styles.phoneInput}
-                    placeholder="10-digit mobile number"
-                    value={phone}
-                    onChange={(e) => setPhone(digitsOnly(e.target.value).slice(0, 10))}
-                    autoComplete="tel-national"
-                    autoFocus
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className={styles.submitBtn}
-                  disabled={loading || mobile.length !== 10}
-                >
-                  {loading ? 'Sending OTP…' : 'Send OTP'}
-                </button>
-              </form>
-            )}
-
-            {step === 'otp' && (
-              <form className={styles.form} onSubmit={handleVerifyOtp}>
-                <span className={styles.label} id="login-otp-label">
-                  Enter OTP
-                </span>
-                <div
-                  className={styles.otpBoxes}
-                  role="group"
-                  aria-labelledby="login-otp-label"
-                  onPaste={handleOtpPaste}
-                >
-                  {otpDigits.map((digit, index) => (
-                    <input
-                      key={index}
-                      ref={(el) => {
-                        otpRefs.current[index] = el;
-                      }}
-                      type="text"
-                      inputMode="numeric"
-                      autoComplete={index === 0 ? 'one-time-code' : 'off'}
-                      maxLength={1}
-                      className={styles.otpBox}
-                      value={digit}
-                      onChange={(e) => handleOtpChange(index, e.target.value)}
-                      onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                      aria-label={`Digit ${index + 1}`}
-                    />
-                  ))}
-                </div>
-                <button
-                  type="submit"
-                  className={styles.submitBtn}
-                  disabled={loading || otp.length !== OTP_LENGTH}
-                >
-                  {loading ? 'Verifying…' : 'Verify OTP'}
-                </button>
-                <div className={styles.otpActions}>
-                  <button type="button" className={styles.textBtn} onClick={changeNumber}>
-                    Change number
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.textBtn}
-                    onClick={handleResend}
-                    disabled={resendIn > 0 || loading}
-                  >
-                    {resendIn > 0 ? `Resend in ${resendIn}s` : 'Resend OTP'}
-                  </button>
-                </div>
-              </form>
-            )}
-
-            {step === 'name' && (
-              <form className={styles.form} onSubmit={handleSubmitName}>
-                <label className={styles.label} htmlFor="login-name">
-                  Full Name
-                </label>
-                <input
-                  id="login-name"
-                  ref={nameRef}
-                  type="text"
-                  className={styles.input}
-                  placeholder="Enter your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  autoComplete="name"
-                  required
-                />
-                <button
-                  type="submit"
-                  className={styles.submitBtn}
-                  disabled={loading || !name.trim()}
-                >
-                  {loading ? 'Please wait…' : 'Continue'}
-                </button>
-              </form>
-            )}
-
-            <p className={styles.legalNote}>
-              By continuing, you agree to our{' '}
-              <Link href="/policy/terms-and-conditions">Terms</Link> and{' '}
-              <Link href="/policy/privacy-policy">Privacy Policy</Link>.
-            </p>
-          </>
-        )}
-      </main>
     </div>
   );
 }

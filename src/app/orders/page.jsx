@@ -35,7 +35,7 @@ function OrdersContent() {
                   {payment === 'cod' ? 'Order placed' : 'Payment successful'}
                 </h1>
                 <p className={styles.subtitle}>
-                  Thank you for shopping with ChairDekho.
+                  Thank you for supporting our artisans.
                   {orderId ? ` Your order ID is ${orderId}.` : ''}
                   {payment === 'cod'
                     ? ' Please keep the payment ready at delivery.'

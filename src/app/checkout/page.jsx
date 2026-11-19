@@ -3,7 +3,7 @@ import CheckoutScreen from './CheckoutScreen';
 
 export const metadata = {
   title: 'Checkout',
-  description: 'Complete your ChairDekho order securely.',
+  description: 'Complete your order securely.',
   robots: { index: false, follow: false },
 };
 

@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { Suspense, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ShoppingCart, User, ArrowRight, ArrowUpRight, Phone } from 'lucide-react';
+import { Menu, X, ShoppingCart, User, ArrowRight } from 'lucide-react';
+import HeaderSearch from './HeaderSearch';
 import { useCart } from '@/context/CartContext';
 import authService from '@/lib/services/auth';
-import { CONTACT } from '@/lib/seo';
+import { BRAND_SHORT } from '@/lib/seo';
 import Logo from '@/components/Logo/Logo';
 import SocialLinks from '@/components/SocialLinks/SocialLinks';
 import CategoryNav from '@/components/CategoryNav/CategoryNav';
@@ -66,33 +67,11 @@ export default function Header() {
     { label: 'Contact', href: '/contact-us' },
   ].filter(Boolean);
 
-  const phoneHref = `tel:+${CONTACT.whatsapp}`;
+  const isHome = pathname === '/';
 
   return (
     <>
-      <div className={styles.topBar}>
-        <div className={styles.topBarInner}>
-          <a
-            href={CONTACT.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.topBarMapLink}
-            title="View on Google Maps"
-          >
-            <span className={styles.topBarTagline}>Best Chairs in Vasai Virar</span>
-            <span className={styles.topBarMapBtn} aria-hidden="true">
-              <ArrowUpRight size={14} strokeWidth={2.25} />
-            </span>
-          </a>
-          <a href={phoneHref} className={styles.topBarPhone}>
-            <Phone size={13} strokeWidth={2} className={styles.topBarPhoneIcon} />
-            <span className={styles.topBarPhoneLabel}>For Bulk Order:</span>
-            <span className={styles.topBarPhoneNumber}>{CONTACT.phone}</span>
-          </a>
-        </div>
-      </div>
-
-      <header className={styles.header}>
+      <header className={`${styles.header} ${isHome ? styles.headerHomeOverlay : ''}`.trim()}>
         <div className={styles.inner}>
           
           {/* ================= LEFT SECTION ================= */}
@@ -107,7 +86,7 @@ export default function Header() {
               <Menu size={24} strokeWidth={1.5} />
             </button>
 
-            <Logo />
+            <Logo className={styles.headerLogo} onDark />
           </div>
 
           {/* ================= CENTER SECTION: nav links ================= */}
@@ -127,6 +106,9 @@ export default function Header() {
           <div className={styles.rightSection}>
             {/* Icon Actions */}
             <div className={styles.iconActions}>
+              <Suspense fallback={null}>
+                <HeaderSearch />
+              </Suspense>
               <Link href="/cart" className={styles.iconBtn} aria-label="Shopping Cart">
                 <ShoppingCart size={20} strokeWidth={1.5} />
                 {totalItems > 0 && (
@@ -135,7 +117,11 @@ export default function Header() {
                   </span>
                 )}
               </Link>
-              <Link href={accountHref} className={styles.iconBtn} aria-label="My Account">
+              <Link
+                href={accountHref}
+                className={`${styles.iconBtn} ${styles.accountBtn}`}
+                aria-label="My Account"
+              >
                 <User size={20} strokeWidth={1.5} />
               </Link>
             </div>
@@ -144,7 +130,7 @@ export default function Header() {
         </div>
       </header>
 
-      <CategoryNav />
+      {!isHome && FEATURES.floatingCategorySection ? <CategoryNav /> : null}
 
       {/* ================= MOBILE DRAWER MENU ================= */}
       {(mobileMenuOpen || mobileMenuClosing) && (
@@ -228,7 +214,7 @@ export default function Header() {
                 items={['whatsapp', 'instagram', 'email', 'maps']}
                 className={styles.drawerSocial}
               />
-              <p>© {new Date().getFullYear()} ChairDekho. All rights reserved.</p>
+              <p>© {new Date().getFullYear()} {BRAND_SHORT}. All rights reserved.</p>
             </div>
           </div>
         </div>

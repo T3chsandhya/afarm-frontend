@@ -2,19 +2,10 @@
 
 import styles from '@/app/admin/products/products.module.css';
 
-const emptyColor = () => ({ name: '', hex: '#5c3d2e' });
+const emptyColor = () => ({ name: '', hex: '#155d27' });
 
-/**
- * Product-level color editor (solid or multicolor) + sibling product linker.
- */
-export default function ProductColorEditor({
-  colors = [],
-  onChangeColors,
-  siblingIds = [],
-  onChangeSiblingIds,
-  allProducts = [],
-  currentProductId = null,
-}) {
+/** Product-level color editor (solid or multicolor). */
+export default function ProductColorEditor({ colors = [], onChangeColors }) {
   const updateColor = (index, patch) => {
     onChangeColors(
       colors.map((c, i) => (i === index ? { ...c, ...patch } : c))
@@ -29,25 +20,12 @@ export default function ProductColorEditor({
     onChangeColors([...(colors || []), emptyColor()]);
   };
 
-  const toggleSibling = (id) => {
-    const sid = String(id);
-    onChangeSiblingIds(
-      siblingIds.includes(sid)
-        ? siblingIds.filter((x) => x !== sid)
-        : [...siblingIds, sid]
-    );
-  };
-
-  const linkable = (allProducts || []).filter(
-    (p) => String(p.id) !== String(currentProductId || '')
-  );
-
   return (
     <section className={styles.formSection}>
       <h2 className={styles.sectionTitle}>Color</h2>
       <p className={styles.formHint}>
-        Add one color for a solid swatch, or multiple for a multicolor split. Link other
-        products as color siblings so shoppers can switch on cards and PDP.
+        Add one color for a solid swatch, or multiple for a multicolor split on product cards
+        and the product page.
       </p>
 
       <div className={styles.colorEditorList}>
@@ -56,7 +34,7 @@ export default function ProductColorEditor({
             <input
               type="color"
               className={styles.colorCircle}
-              value={c.hex || '#5c3d2e'}
+              value={c.hex || '#155d27'}
               onChange={(e) => updateColor(index, { hex: e.target.value })}
               aria-label={`Color ${index + 1}`}
             />
@@ -84,31 +62,6 @@ export default function ProductColorEditor({
           {colors?.length ? 'Add another color (multicolor)' : 'Add color'}
         </button>
       </div>
-
-      {linkable.length > 0 && (
-        <div className={styles.siblingBlock}>
-          <label className={styles.formLabel}>Color siblings (other products)</label>
-          <p className={styles.formHint}>
-            Selecting a product links it so color radios navigate between PDPs.
-          </p>
-          <div className={styles.categoryChecklist}>
-            {linkable.map((p) => {
-              const id = String(p.id);
-              const checked = siblingIds.includes(id);
-              return (
-                <label key={p.id} className={styles.categoryCheckItem}>
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={() => toggleSibling(id)}
-                  />
-                  <span>{p.name}</span>
-                </label>
-              );
-            })}
-          </div>
-        </div>
-      )}
     </section>
   );
 }

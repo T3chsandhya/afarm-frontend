@@ -1,4 +1,4 @@
-import { CONTACT, INSTAGRAM_URL } from '@/lib/seo';
+import { BRAND_SHORT, CONTACT, INSTAGRAM_URL } from '@/lib/seo';
 import styles from './socialLinks.module.css';
 
 const ICONS = {
@@ -31,16 +31,18 @@ const ICONS = {
 const LINKS = {
   whatsapp: {
     href: `https://wa.me/${CONTACT.whatsapp}`,
-    label: 'Chat with ChairDekho on WhatsApp',
+    label: `Chat with ${BRAND_SHORT} on WhatsApp`,
     title: `WhatsApp ${CONTACT.phone}`,
     external: true,
   },
-  instagram: {
-    href: INSTAGRAM_URL,
-    label: 'Follow ChairDekho on Instagram',
-    title: '@chairdekho on Instagram',
-    external: true,
-  },
+  instagram: INSTAGRAM_URL
+    ? {
+        href: INSTAGRAM_URL,
+        label: `Follow ${BRAND_SHORT} on Instagram`,
+        title: `${BRAND_SHORT} on Instagram`,
+        external: true,
+      }
+    : null,
   email: {
     href: `mailto:${CONTACT.email}`,
     label: `Email ${CONTACT.email}`,
@@ -49,14 +51,14 @@ const LINKS = {
   },
   maps: {
     href: CONTACT.mapsUrl,
-    label: 'Find ChairDekho on Google Maps',
+    label: `Find ${BRAND_SHORT} on Google Maps`,
     title: 'Open in Google Maps',
     external: true,
   },
 };
 
 export default function SocialLinks({
-  items = ['instagram', 'whatsapp', 'email'],
+  items = ['whatsapp', 'email', 'maps'],
   className = '',
 }) {
   return (

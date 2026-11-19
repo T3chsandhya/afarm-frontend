@@ -71,8 +71,8 @@ export default async function GoogleReviews() {
             </>
           ) : (
             <p className={styles.basedOn}>
-              Your review helps other families and businesses in Vasai-Virar find the right
-              chairs.
+              Your review helps others discover farm-direct staples from Maharashtra FPOs and support
+              our grower collective.
             </p>
           )}
           <div className={styles.actions}>

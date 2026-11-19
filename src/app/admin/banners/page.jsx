@@ -270,7 +270,7 @@ export default function BannersPage() {
                 className={styles.formInput}
                 value={form.title}
                 onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))}
-                placeholder="Plastic chairs sale – up to 30% off"
+                placeholder="Seasonal harvest collection – shop now"
               />
               <span className={styles.formHint}>Not shown on the banner; used for SEO and screen readers.</span>
             </div>

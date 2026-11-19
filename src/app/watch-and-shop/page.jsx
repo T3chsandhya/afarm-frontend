@@ -53,7 +53,7 @@ export default function WatchAndShopPage() {
       <main className={styles.main}>
         <div className={styles.headerSection}>
           <h1 className={styles.title}>WATCH & SHOP</h1>
-          <p className={styles.subtitle}>See our chairs in action, then shop your favourite.</p>
+          <p className={styles.subtitle}>Watch our artisans at work, then shop your favourite pieces.</p>
         </div>
 
         {loading ? (

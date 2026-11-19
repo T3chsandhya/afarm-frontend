@@ -1,13 +1,7 @@
-const CDN_BASE = 'https://lansdowne-cdn.b-cdn.net/Basic_Assets';
-
 export const ASSETS = {
-  mainLogo: `${CDN_BASE}/main_logo.svg`,
-  textLogo: `${CDN_BASE}/text_logo.svg`,
-  heroLeft: `${CDN_BASE}/hero_left.webp`,
-  heroRight: `${CDN_BASE}/hero_right.webp`,
-  qualityChecked: '/images/trust/quality.webp',
-  multipleDesigns: '/images/trust/designs.webp',
-  wholesalePrice: '/images/trust/valueformoney.webp',
-  googleRating: '/images/trust/rating.webp',
-  ogImage: 'https://chairdekho.b-cdn.net/Basic%20assets/chakaldekhoog.webp',
+  quality: '/images/trust/quality.png',
+  network: '/images/trust/network.png',
+  farmDirect: '/images/trust/farmdirect.png',
+  farmerFirst: '/images/trust/farmerfirst.png',
+  ogImage: '/icon.png',
 };

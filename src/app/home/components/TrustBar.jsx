@@ -1,25 +1,25 @@
-import { ShieldCheck, Truck, RotateCcw, Headphones } from 'lucide-react';
+import Image from 'next/image';
 import styles from '../home.module.css';
 
 export default function TrustBar() {
   const items = [
     {
-      icon: <ShieldCheck size={22} />,
+      icon: '/images/trust/quality.png',
       title: 'Quality Checked',
-      desc: 'Sturdy chairs, every piece inspected',
+      desc: 'Sourced through Maharashtra FPOs',
     },
     {
-      icon: <Truck size={22} />,
-      title: 'Fast Local Delivery',
-      desc: 'Quick delivery in Vasai Virar',
+      icon: '/images/trust/network.png',
+      title: 'Pan-India Delivery',
+      desc: 'Farm-direct staples shipped nationwide',
     },
     {
-      icon: <RotateCcw size={22} />,
+      icon: '/images/trust/farmdirect.png',
       title: 'Easy Returns',
       desc: '7-day hassle-free returns',
     },
     {
-      icon: <Headphones size={22} />,
+      icon: '/images/trust/farmerfirst.png',
       title: 'Dedicated Support',
       desc: 'Personalized customer care',
     },
@@ -27,9 +27,18 @@ export default function TrustBar() {
 
   return (
     <div className={styles.trustBar}>
-      {items.map((item, idx) => (
-        <div key={idx} className={styles.trustItem}>
-          <div className={styles.trustIcon}>{item.icon}</div>
+      {items.map((item) => (
+        <div key={item.title} className={styles.trustItem}>
+          <div className={styles.trustIcon}>
+            <Image
+              src={item.icon}
+              alt=""
+              width={64}
+              height={64}
+              sizes="(max-width: 1024px) 48px, 64px"
+              className={styles.trustIconImg}
+            />
+          </div>
           <div>
             <div className={styles.trustTitle}>{item.title}</div>
             <div className={styles.trustDesc}>{item.desc}</div>

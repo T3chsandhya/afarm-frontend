@@ -101,6 +101,131 @@
   text-transform: uppercase;
 }
 
+.stepper {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(4px, 1.5vw, 8px);
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+.stepItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  opacity: 0.45;
+}
+
+.stepItemActive {
+  opacity: 1;
+}
+
+.stepItemDone {
+  opacity: 0.75;
+}
+
+.stepBadge {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1.5px solid #cfe0d4;
+  color: var(--text-muted);
+  background: #fff;
+}
+
+.stepItemActive .stepBadge {
+  border-color: #155d27;
+  background: #155d27;
+  color: #fff;
+}
+
+.stepItemDone .stepBadge {
+  border-color: #155d27;
+  color: #155d27;
+}
+
+.stepLabel {
+  font-size: clamp(0.58rem, 2.2vw, 0.68rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stepHint {
+  margin: -8px 0 16px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.stepActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--radius-sm, 4px);
+  border: 1px solid transparent;
+}
+
+.primaryBtn {
+  background: #155d27;
+  color: #ffffff;
+  border-color: #155d27;
+}
+
+.primaryBtn:hover {
+  background: #0f4a1d;
+}
+
+.secondaryBtn {
+  background: #ffffff;
+  color: var(--text-main);
+  border-color: #cfe0d4;
+}
+
+.secondaryBtn:hover {
+  border-color: #155d27;
+}
+
+.inputReadonly {
+  background: var(--section-alt-bg, #f5faf7);
+  color: var(--text-main);
+  cursor: default;
+}
+
+.locationReview {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #dceee2;
+}
+
 .formGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -478,5 +603,16 @@
 
   .fullWidth {
     grid-column: auto;
+  }
+
+  .stepBadge {
+    width: 26px;
+    height: 26px;
+    font-size: 0.72rem;
+  }
+
+  .stepItem {
+    gap: 4px;
+    min-width: 0;
   }
 }

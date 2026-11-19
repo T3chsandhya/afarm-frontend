@@ -609,7 +609,7 @@
 .categoryCheckItem input {
   width: 16px;
   height: 16px;
-  accent-color: #5c3d2e;
+  accent-color: #155d27;
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -653,10 +653,6 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 16px;
-}
-
-.siblingBlock {
-  margin-top: 8px;
 }
 
 .secondaryBtn {

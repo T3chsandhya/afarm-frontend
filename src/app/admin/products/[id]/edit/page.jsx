@@ -24,7 +24,7 @@ const emptyOption = () => ({
   mrp: '',
   stock: '0',
   weight: '',
-  hex: '#5c3d2e',
+  hex: '#155d27',
   colors: [],
   image_url: '',
   images: [],
@@ -51,6 +51,8 @@ export default function EditProductPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [sellers, setSellers] = useState([]);
+  const [sellerId, setSellerId] = useState('');
   const [metafieldDefs, setMetafieldDefs] = useState([]);
 
   const [name, setName] = useState('');
@@ -76,8 +78,6 @@ export default function EditProductPage() {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [dragActive, setDragActive] = useState(false);
   const [colors, setColors] = useState([]);
-  const [siblingIds, setSiblingIds] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [optionLibrary, setOptionLibrary] = useState(null); // { vIndex, oIndex }
 
@@ -88,20 +88,17 @@ export default function EditProductPage() {
     const load = async () => {
       try {
         setLoading(true);
-        const [cats, fields, product, productList] = await Promise.all([
+        const [cats, fields, product, sellerOpts] = await Promise.all([
           adminService.getCategories(),
           adminService.getMetafieldDefinitions(),
           adminService.getAdminProduct(productId),
-          adminService.getAdminProducts({ limit: 100 }),
+          adminService.getSellerOptions(),
         ]);
         if (!mounted) return;
 
         const catList = Array.isArray(cats) ? cats.filter((c) => !c.is_reels) : [];
         setCategories(catList);
-        setAllProducts(
-          Array.isArray(productList?.products) ? productList.products : []
-        );
-
+        setSellers(Array.isArray(sellerOpts?.sellers) ? sellerOpts.sellers : []);
         const defs = Array.isArray(fields)
           ? fields.filter((f) => f.is_active !== false)
           : [];
@@ -123,6 +120,7 @@ export default function EditProductPage() {
             ? [String(product.category_id)]
             : [];
         setCategoryIds(loadedIds);
+        setSellerId(product.seller_id != null ? String(product.seller_id) : '');
         setStock(product.stock != null ? String(product.stock) : '0');
         setUnit(product.unit || 'piece');
         setWeight(product.weight != null ? String(product.weight) : '');
@@ -138,18 +136,10 @@ export default function EditProductPage() {
           Array.isArray(product.colors)
             ? product.colors.map((c) => ({
                 name: c.name || '',
-                hex: c.hex || '#5c3d2e',
+                hex: c.hex || '#155d27',
               }))
             : []
         );
-        setSiblingIds(
-          Array.isArray(product.color_siblings)
-            ? product.color_siblings
-                .filter((s) => String(s.id) !== String(product.id))
-                .map((s) => String(s.id))
-            : []
-        );
-
         const mf = {};
         defs.forEach((d) => {
           mf[d.key] = product.metafields?.[d.key] || '';
@@ -164,9 +154,9 @@ export default function EditProductPage() {
             mrp: o.mrp != null ? String(o.mrp) : '',
             stock: o.stock != null ? String(o.stock) : '0',
             weight: o.weight != null ? String(o.weight) : '',
-            hex: o.hex || (o.colors?.[0]?.hex) || '#5c3d2e',
+            hex: o.hex || (o.colors?.[0]?.hex) || '#155d27',
             colors: Array.isArray(o.colors)
-              ? o.colors.map((c) => ({ name: c.name || '', hex: c.hex || '#5c3d2e' }))
+              ? o.colors.map((c) => ({ name: c.name || '', hex: c.hex || '#155d27' }))
               : o.hex
                 ? [{ name: o.name || '', hex: o.hex }]
                 : [],
@@ -390,9 +380,9 @@ export default function EditProductPage() {
           name: (c.name || '').trim() || c.hex,
           hex: c.hex,
         })),
-      color_sibling_ids: siblingIds.map((id) => Number(id)),
       seo_title: seoTitle.trim(),
       seo_description: seoDescription.trim(),
+      seller_id: sellerId ? Number(sellerId) : null,
     };
   };
 
@@ -737,7 +727,7 @@ export default function EditProductPage() {
                             <input
                               type="color"
                               className={styles.colorCircle}
-                              value={opt.hex || '#5c3d2e'}
+                              value={opt.hex || '#155d27'}
                               onChange={(e) =>
                                 updateOption(vIndex, oIndex, {
                                   hex: e.target.value,
@@ -763,7 +753,7 @@ export default function EditProductPage() {
                                 const next = [
                                   ...(Array.isArray(opt.colors) && opt.colors.length
                                     ? opt.colors
-                                    : [{ name: opt.name || '', hex: opt.hex || '#5c3d2e' }]),
+                                    : [{ name: opt.name || '', hex: opt.hex || '#155d27' }]),
                                   { name: '', hex: '#c45c26' },
                                 ];
                                 updateOption(vIndex, oIndex, {
@@ -780,7 +770,7 @@ export default function EditProductPage() {
                                   key={ci}
                                   type="color"
                                   className={styles.colorCircle}
-                                  value={c.hex || '#5c3d2e'}
+                                  value={c.hex || '#155d27'}
                                   onChange={(e) => {
                                     const next = opt.colors.map((x, i) =>
                                       i === ci ? { ...x, hex: e.target.value } : x
@@ -1019,6 +1009,24 @@ export default function EditProductPage() {
 
         <aside className={styles.formSidebar}>
           <section className={styles.formSection}>
+            <h2 className={styles.sectionTitle}>Seller</h2>
+            <div className={styles.formGroup} style={{ marginBottom: 16 }}>
+              <label className={styles.formLabel}>Fulfilled by</label>
+              <select
+                className={styles.formInput}
+                value={sellerId}
+                onChange={(e) => setSellerId(e.target.value)}
+              >
+                <option value="">— No seller —</option>
+                {sellers.map((s) => (
+                  <option key={s.id} value={String(s.id)}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </section>
+          <section className={styles.formSection}>
             <h2 className={styles.sectionTitle}>Categories</h2>
             <div className={styles.formGroup} style={{ marginBottom: 0 }}>
               <label className={styles.formLabel}>
@@ -1056,14 +1064,7 @@ export default function EditProductPage() {
             </div>
           </section>
 
-          <ProductColorEditor
-            colors={colors}
-            onChangeColors={setColors}
-            siblingIds={siblingIds}
-            onChangeSiblingIds={setSiblingIds}
-            allProducts={allProducts}
-            currentProductId={productId}
-          />
+          <ProductColorEditor colors={colors} onChangeColors={setColors} />
 
           <section className={styles.formSection}>
             <h2 className={styles.sectionTitle}>Product Status</h2>

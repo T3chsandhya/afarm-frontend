@@ -1,6 +1,7 @@
 .footer {
-  border-top: 1px solid var(--border);
-  background-color: var(--surface-subtle);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: var(--accent-hover, #155d27);
+  color: #ffffff;
   padding: clamp(var(--section-space-mobile), 6vw, 70px) var(--gutter-inline) 32px;
   margin-top: auto;
   width: 100%;
@@ -52,7 +53,7 @@
 }
 
 .brandDesc {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.82);
   font-size: var(--text-body);
   line-height: 1.6;
   max-width: 360px;
@@ -65,7 +66,7 @@
 .colTitle {
   font-size: var(--text-h3);
   font-weight: 700;
-  color: var(--text-main);
+  color: #ffffff;
   margin-bottom: 18px;
   letter-spacing: 0.02em;
 }
@@ -77,25 +78,25 @@
 }
 
 .link {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.78);
   font-size: var(--text-body);
   transition: color var(--transition-fast);
 }
 
 .link:hover {
-  color: var(--text-main);
+  color: #ffffff;
 }
 
 .bottomBar {
   max-width: var(--container-2xl);
   margin: 0 auto;
   padding-top: 28px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.78);
   font-size: var(--text-body);
   flex-wrap: wrap;
   gap: 12px;
@@ -104,7 +105,7 @@
 .brandCopyright {
   display: none;
   margin: 6px 0 0;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.78);
   font-size: var(--text-body);
 }
 
@@ -125,14 +126,14 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .gstin {
   font-size: var(--text-micro);
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* ================= DEVELOPER CREDIT STRIP ================= */

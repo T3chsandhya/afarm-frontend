@@ -68,9 +68,9 @@ export default function ProductShowcase() {
   return (
     <section className={`${styles.section} ${styles.productSection}`}>
       <div className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>TRENDING NOW</h2>
+        <h2 className={styles.sectionTitle}>FEATURED PIECES</h2>
         <div className={styles.sectionTitleRow}>
-          <p className={styles.sectionSubtitle}>Shop What’s In Demand</p>
+          <p className={styles.sectionSubtitle}>Handpicked favorites from our artisans</p>
           <Link href="/shop" className={styles.sectionLink}>
             View All <ArrowRight size={16} />
           </Link>

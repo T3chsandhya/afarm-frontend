@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 import { FEATURES } from '@/lib/features';
-import { pageMetadata } from '@/lib/seo';
+import { BRAND_SHORT, COLLECTIVE_NAME, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Watch & Shop | ChairDekho',
+  title: `Watch & Shop | ${BRAND_SHORT}`,
   description:
-    'Watch short videos of our plastic, dining, garden, office and kids chairs, and shop your favourite chairs instantly at affordable prices.',
+    `Watch short videos from ${COLLECTIVE_NAME} and shop farm-direct staples instantly.`,
   path: '/watch-and-shop',
 });
 

@@ -13,6 +13,7 @@ import {
   ORDER_STATUS_META,
 } from '@/lib/orderDisplay';
 import DelhiveryShipping from './DelhiveryShipping';
+import ShiprocketShipping from './ShiprocketShipping';
 import productStyles from '../products/products.module.css';
 import styles from './orders.module.css';
 
@@ -116,11 +117,32 @@ export default function AdminOrdersPage() {
     load();
   }, [load]);
 
-  const handleShipmentChange = useCallback((orderId, shipment) => {
+  const handleShipmentChange = useCallback((orderId, shipment, meta) => {
+    const mergeShipment = (order) => {
+      const sellerId = meta?.sellerId ?? shipment?.seller_id ?? null;
+      const prevList = order.shipments?.length
+        ? [...order.shipments]
+        : order.shipment
+          ? [order.shipment]
+          : [];
+      const idx = prevList.findIndex((s) =>
+        sellerId == null
+          ? s.seller_id == null
+          : Number(s.seller_id) === Number(sellerId)
+      );
+      if (idx >= 0) prevList[idx] = shipment;
+      else prevList.push(shipment);
+      const next = { ...order, shipments: prevList };
+      if (prevList.length === 1) next.shipment = prevList[0];
+      else next.shipment = undefined;
+      return next;
+    };
     setOrders((prev) =>
-      prev.map((o) => (o.order_id === orderId ? { ...o, shipment } : o))
+      prev.map((o) => (o.order_id === orderId ? mergeShipment(o) : o))
     );
-    setSelected((prev) => (prev?.order_id === orderId ? { ...prev, shipment } : prev));
+    setSelected((prev) =>
+      prev?.order_id === orderId ? mergeShipment(prev) : prev
+    );
   }, []);
 
   const handleStatusChange = async (orderId, nextStatus) => {
@@ -299,6 +321,11 @@ export default function AdminOrdersPage() {
                   </div>
                 </div>
               </div>
+
+              <h4 className={styles.detailLabel} style={{ marginTop: 20 }}>
+                Shipping · Shiprocket (per seller)
+              </h4>
+              <ShiprocketShipping order={selected} onShipmentChange={handleShipmentChange} />
 
               <h4 className={styles.detailLabel} style={{ marginTop: 20 }}>
                 Shipping · Delhivery One

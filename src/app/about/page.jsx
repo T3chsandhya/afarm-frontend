@@ -3,44 +3,51 @@ import styles from './about.module.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import PageHeroBanner from '@/components/PageHeroBanner/PageHeroBanner';
-import { Store, PackageCheck, BadgeCheck, Wallet } from 'lucide-react';
+import { HandHeart, Leaf, Sparkles, Users } from 'lucide-react';
 import WhyChooseUs from '@/app/home/components/WhyChooseUs';
-import { pageMetadata } from '@/lib/seo';
+import {
+  BRAND,
+  BRAND_SHORT,
+  BRAND_TAGLINE,
+  COLLECTIVE_NAME,
+  HOME_DESCRIPTION_LONG,
+  pageMetadata,
+} from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'About Us | ChairDekho – Chair Shop in Vasai Virar',
+  title: `About Us | ${COLLECTIVE_NAME} – ${BRAND_SHORT}`,
   description:
-    'ChairDekho is your local chair shop in Nalasopara, Vasai-Virar. All types of chairs – plastic, arm, dining, garden, office and kids – at affordable prices.',
+    'Learn about AFARM — a Maharashtra-based group of Farmer Producer Organisations delivering farm-direct staples from growers to your home.',
   path: '/about',
 });
 
 const WHY_POINTS = [
   {
-    icon: Store,
-    title: 'See It Before You Buy',
-    desc: 'Visit our shop near Umadevi Mandir, Nalasopara West, and sit on every chair before you decide.',
+    icon: Sparkles,
+    title: 'Collective Strength',
+    desc: 'Individual farmers gain market power by organising into FPOs and collaborating under AFARM.',
   },
   {
-    icon: PackageCheck,
-    title: 'Retail & Wholesale',
-    desc: 'One chair for your home or hundreds for a banquet hall – bulk orders get wholesale rates.',
+    icon: Users,
+    title: 'Grower-Led',
+    desc: 'Decisions stay close to the field — members set quality standards and share in the value created.',
   },
   {
-    icon: BadgeCheck,
-    title: 'Trusted Brands',
-    desc: 'Durable chairs from names like Prime, checked by our team before every dispatch.',
+    icon: Leaf,
+    title: 'Seasonal & Honest',
+    desc: 'Harvests and staples move with the season, with traceability from Maharashtra farms to your kitchen.',
   },
   {
-    icon: Wallet,
-    title: 'Pay Your Way',
-    desc: 'Cash on delivery, UPI, cards or net banking, all through a secure checkout.',
+    icon: HandHeart,
+    title: 'Farm to Home',
+    desc: 'We shorten the chain between producers and families — fair pricing, dependable supply, pan-India delivery.',
   },
 ];
 
 const WHY_STATS = [
-  { value: '5.0★', label: 'Google rating' },
-  { value: '100+', label: 'Happy reviews' },
-  { value: '10–7', label: 'Open Mon–Sat' },
+  { value: 'FPO', label: 'Farmer collectives' },
+  { value: 'MH', label: 'Maharashtra rooted' },
+  { value: 'AFARM', label: 'United marketplace' },
 ];
 
 export default function AboutPage() {
@@ -48,57 +55,53 @@ export default function AboutPage() {
     <div className={styles.container}>
       <Header />
       <PageHeroBanner
-        title="About ChairDekho"
-        subtitle="All types of chairs, at affordable prices, in Vasai Virar."
+        variant="simple"
+        title={`About ${BRAND_SHORT}`}
+        subtitle={`${BRAND_TAGLINE} — from growers to your home.`}
       />
 
       <main className={styles.main}>
-        {/* ── Our Story ── */}
         <section className={styles.storySection}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>OUR STORY</h2>
-            <p className={styles.sectionSubtitle}>A Chair for Every Space</p>
+            <p className={styles.sectionSubtitle}>Farmers, FPOs, and one trusted marketplace</p>
           </div>
 
           <div className={styles.storyContent}>
             <div className={styles.storyMedia}>
               <Image
-                src="/images/brand/chakladekho.webp"
-                alt="ChairDekho logo"
-                width={1200}
-                height={542}
-                sizes="(max-width: 900px) 100vw, 520px"
+                src="/assets/logo.svg"
+                alt={`${BRAND} logo`}
+                width={512}
+                height={512}
+                sizes="(max-width: 900px) 80vw, 280px"
                 className={styles.storyImage}
+                unoptimized
               />
             </div>
             <div className={styles.storyText}>
+              <p className={styles.paragraph}>{HOME_DESCRIPTION_LONG}</p>
               <p className={styles.paragraph}>
-                ChairDekho started with a simple idea: buying a good chair should be easy and
-                affordable. From plastic chairs and arm chairs to dining, garden, office and kids
-                chairs, we bring all types of chairs together in one place.
-              </p>
-              <p className={styles.paragraph}>
-                Proudly based in Nalasopara West, Vasai-Virar, we supply chairs to homes, shops,
-                offices, restaurants and events across Vasai, Virar and Nalasopara.
+                {BRAND_SHORT} works across Maharashtra so member FPOs can list seasonal produce,
+                staples, and value-added goods on one platform — with logistics and customer care
+                that help smallholders compete at scale.
               </p>
             </div>
           </div>
         </section>
 
-        {/* ── Our Values ── */}
         <div className={styles.valuesWrap}>
-          <WhyChooseUs title="OUR VALUES" subtitle="What We Stand For" />
+          <WhyChooseUs title="OUR VALUES" subtitle="What we stand for" />
         </div>
 
-        {/* ── Why ChairDekho ── */}
         <section className={styles.whySection}>
           <div className={styles.whyCard}>
             <div className={styles.whyIntro}>
-              <h2 className={styles.whyTitle}>WHY CHAIRDEKHO</h2>
-              <p className={styles.whySubtitle}>Your neighbourhood chair wholesaler</p>
+              <h2 className={styles.whyTitle}>WHY {BRAND_SHORT.toUpperCase()}</h2>
+              <p className={styles.whySubtitle}>{COLLECTIVE_NAME}</p>
               <p className={styles.whyLead}>
-                From a single chair for your balcony to hundreds for a wedding hall, we make buying
-                chairs in Vasai-Virar simple, honest and quick.
+                When you shop with {BRAND_SHORT}, you support collective farming enterprise in
+                Maharashtra — and choose food sourced closer to the people who grow it.
               </p>
               <ul className={styles.whyStats}>
                 {WHY_STATS.map((stat) => (

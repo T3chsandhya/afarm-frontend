@@ -2,40 +2,55 @@
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  line-height: 0;
+  line-height: 1;
   text-decoration: none;
   transition: opacity var(--transition-fast, 0.2s ease);
 }
 
 .logo:hover {
-  opacity: 0.88;
+  opacity: 0.92;
+}
+
+.imageWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: calc(var(--logo-pad) * 0.35) calc(var(--logo-pad) * 0.5);
+  line-height: 0;
 }
 
 .image {
   display: block;
   height: var(--logo-h);
   width: auto;
-  aspect-ratio: 1355 / 842;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
 .sm {
-  --logo-h: 40px;
+  --logo-h: 32px;
+  --logo-pad: 6px;
 }
 
 .md {
-  --logo-h: clamp(44px, 3.4vw, 52px);
+  --logo-h: clamp(36px, 3vw, 44px);
+  --logo-pad: 8px;
 }
 
 .lg {
-  --logo-h: clamp(64px, 5vw, 80px);
+  --logo-h: clamp(44px, 4vw, 56px);
+  --logo-pad: 10px;
 }
 
 @media (max-width: 768px) {
   .md {
-    --logo-h: 40px;
+    --logo-h: 34px;
+    --logo-pad: 6px;
   }
 
   .lg {
-    --logo-h: 60px;
+    --logo-h: 40px;
+    --logo-pad: 8px;
   }
 }

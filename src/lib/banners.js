@@ -1,6 +1,6 @@
 export const BANNER_SIZES = {
   desktop: { width: 2048, height: 768, label: 'Desktop' },
-  mobile: { width: 1080, height: 405, label: 'Mobile' },
+  mobile: { width: 1080, height: 1080, label: 'Mobile' },
 };
 
 export const resolveBannerUrl = (url) => {

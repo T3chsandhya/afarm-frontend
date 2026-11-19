@@ -65,9 +65,10 @@
 }
 
 .card {
-  border: 1px solid #e2e8f0;
-  background: #ffffff;
+  border: 1px solid var(--border-light, #dceee2);
+  background: var(--section-alt-bg, #f5faf7);
   padding: clamp(20px, 3vw, 28px);
+  border-radius: var(--radius-md, 8px);
 }
 
 .cardHead {
@@ -332,7 +333,7 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--accent, #5c3d2e);
+  color: var(--accent, #155d27);
 }
 
 .orderStatusBadge {
@@ -381,14 +382,15 @@
   text-decoration: none;
   color: inherit;
   padding: 8px;
-  border: 1px solid #e2e8f0;
-  background: #fafafa;
+  border: 1px solid var(--border-light, #dceee2);
+  background: #ffffff;
+  border-radius: var(--radius-sm, 4px);
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 a.orderLineLink:hover {
-  border-color: #cbd5e1;
-  background: #f8fafc;
+  border-color: #cfe0d4;
+  background: #f8fdf9;
 }
 
 .orderLineThumbWrap {

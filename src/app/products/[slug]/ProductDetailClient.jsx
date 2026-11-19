@@ -19,7 +19,7 @@ import ColorSwatches, {
   productColorHref,
 } from '@/components/ColorSwatches/ColorSwatches';
 import ProductCard from '@/components/ProductCard/ProductCard';
-import { ASSETS } from '@/lib/assets';
+import PdpTrustIcons from '@/components/PdpTrustIcons/PdpTrustIcons';
 import styles from './pdp.module.css';
 import cardStyles from '@/app/home/home.module.css';
 
@@ -46,12 +46,12 @@ const stripHtml = (raw) =>
 
 const DEFAULT_FAQS = [
   {
-    q: 'What is the quality of ChairDekho chairs?',
-    a: 'Every chair is made with carefully selected materials and finished for everyday durability. We check strength, stability and surface finish before anything ships.',
+    q: 'Is this product handmade?',
+    a: 'Yes. Our range is sourced and packed through Maharashtra FPOs under AFARM. Natural variation in harvest batch, size, or colour is normal for farm-direct products.',
   },
   {
     q: 'How should I care for this product?',
-    a: 'Wipe with a damp cloth and mild soap. Avoid sharp objects and long exposure to strong heat. For office chairs, check the screws and wheels from time to time.',
+    a: 'Store in a dry place, avoid prolonged water exposure and harsh chemicals, and wipe gently with a soft cloth when needed.',
   },
   {
     q: 'How long does delivery take?',
@@ -756,19 +756,7 @@ function ProductDetailPageInner({ initialProduct, initialDefs, initialColor }) {
                     </button>
                   </div>
 
-                  <div className={styles.trustIcons}>
-                    {[
-                      { src: ASSETS.qualityChecked, label: 'Quality Checked' },
-                      { src: ASSETS.multipleDesigns, label: 'Multiple Designs' },
-                      { src: ASSETS.wholesalePrice, label: 'Wholesale Price' },
-                      { src: ASSETS.googleRating, label: '5 Star Google Rating' },
-                    ].map((item) => (
-                      <div key={item.src} className={styles.trustIconItem}>
-                        <img src={item.src} alt="" className={styles.trustIconImg} />
-                        <span className={styles.trustIconLabel}>{item.label}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <PdpTrustIcons />
 
                   {product.description && (
                     <div className={styles.descriptionBlock}>

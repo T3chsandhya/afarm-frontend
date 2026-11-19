@@ -1,23 +1,27 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { BRAND } from '@/lib/seo';
 import styles from './logo.module.css';
 
-export default function Logo({ size = 'md', className = '', onClick }) {
+export default function Logo({ size = 'md', className = '', onDark = false, onClick }) {
   return (
     <Link
       href="/"
-      className={`${styles.logo} ${styles[size] || ''} ${className}`.trim()}
-      aria-label="ChairDekho Home"
+      className={`${styles.logo} ${styles[size] || ''} ${onDark ? styles.onDark : ''} ${className}`.trim()}
+      aria-label={`${BRAND} home`}
       onClick={onClick}
     >
-      <Image
-        src="/images/brand/chakladekho.svg"
-        alt="ChairDekho"
-        width={1355}
-        height={842}
-        unoptimized
-        className={styles.image}
-      />
+      <span className={styles.imageWrap}>
+        <Image
+          src="/assets/logo.svg"
+          alt=""
+          width={256}
+          height={256}
+          unoptimized
+          className={styles.image}
+          priority={size === 'md'}
+        />
+      </span>
     </Link>
   );
 }

@@ -57,14 +57,14 @@
 }
 
 .item:focus-visible .circle {
-  box-shadow: 0 0 0 2px #5c3d2e, 0 10px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 0 2px #155d27, 0 10px 24px rgba(0, 0, 0, 0.12);
   transform: translateY(-3px);
 }
 
 /* Hover effects only for real pointers on desktop; on touch screens a tap would leave them stuck */
 @media (hover: hover) and (min-width: 769px) {
   .item:hover .circle {
-    box-shadow: 0 0 0 2px #5c3d2e, 0 10px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 0 2px #155d27, 0 10px 24px rgba(0, 0, 0, 0.12);
     transform: translateY(-3px);
   }
 
@@ -73,7 +73,7 @@
   }
 
   .item:hover .name {
-    color: #5c3d2e;
+    color: #155d27;
   }
 }
 
@@ -89,7 +89,7 @@
 .fallbackIcon {
   width: 42%;
   height: 42%;
-  color: #5c3d2e;
+  color: #155d27;
   opacity: 0.85;
 }
 

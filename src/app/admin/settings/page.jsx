@@ -8,9 +8,9 @@ import productStyles from '../products/products.module.css';
 import styles from './settings.module.css';
 
 const DEFAULTS = {
-  brand_name: 'ChairDekho',
-  phone: '9699164131',
-  email: 'brjangu29@gmail.com',
+  brand_name: 'AFARM',
+  phone: '9876543210',
+  email: 'contact@afarm.in',
   locked: true,
   otp_enabled: false,
   order_sms_enabled: false,

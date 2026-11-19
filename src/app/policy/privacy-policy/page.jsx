@@ -2,12 +2,12 @@ import styles from './privacy.module.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import PageHeroBanner from '@/components/PageHeroBanner/PageHeroBanner';
-import { pageMetadata } from '@/lib/seo';
+import { BRAND_SHORT, CONTACT, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Privacy Policy | ChairDekho',
+  title: `Privacy Policy | ${BRAND_SHORT}`,
   description:
-    'Learn how ChairDekho collects, uses, and protects your personal information when you shop with us.',
+    `Learn how ${BRAND_SHORT} collects, uses, and protects your personal information when you shop with us.`,
   path: '/policy/privacy-policy',
 });
 
@@ -16,6 +16,7 @@ export default function PrivacyPolicyPage() {
     <div className={styles.container}>
       <Header />
       <PageHeroBanner
+        variant="simple"
         title="Privacy Policy"
         subtitle="Last updated: September 2026"
         backLabel="Back to Home"
@@ -74,7 +75,7 @@ export default function PrivacyPolicyPage() {
 
           <h2 className={styles.sectionHeading}>6. Third-Party Links</h2>
           <p className={styles.paragraph}>
-            Our website may contain links to third-party websites or services that are not operated by ChairDekho. We are not responsible for the privacy practices or content of these external sites. We encourage you to review the privacy policies of any third-party site you visit.
+            Our website may contain links to third-party websites or services that are not operated by us. We are not responsible for the privacy practices or content of these external sites. We encourage you to review the privacy policies of any third-party site you visit.
           </p>
 
           <h2 className={styles.sectionHeading}>7. Your Rights</h2>
@@ -88,7 +89,7 @@ export default function PrivacyPolicyPage() {
             <li>Request a copy of your data in a portable format</li>
           </ul>
           <p className={styles.paragraph}>
-            To exercise any of these rights, please contact us at <strong>brjangu29@gmail.com</strong>.
+            To exercise any of these rights, please contact us at <strong>{CONTACT.email}</strong>.
           </p>
 
           <h2 className={styles.sectionHeading}>8. Policy Updates</h2>
@@ -97,7 +98,7 @@ export default function PrivacyPolicyPage() {
           </p>
 
           <div className={styles.highlightBox}>
-            <p>If you have any questions about this Privacy Policy, please contact us at <strong>brjangu29@gmail.com</strong> or call <strong>+91 96991 64131</strong>.</p>
+            <p>If you have any questions about this Privacy Policy, please contact us at <strong>{CONTACT.email}</strong> or call <strong>{CONTACT.phone}</strong>.</p>
           </div>
         </div>
       </main>

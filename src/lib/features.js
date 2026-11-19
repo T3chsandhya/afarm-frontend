@@ -2,4 +2,6 @@
 export const FEATURES = {
   // Watch & Shop page + Admin → Catalog Feeds (shoppable videos)
   watchAndShop: false,
+  // Scrolling category marquee (home / shop / product) + green category bar under header
+  floatingCategorySection: false,
 };

@@ -65,7 +65,7 @@ function swatchBackground(colors) {
 /**
  * Radio-style color swatches for product cards / PDP.
  * items: [{ id, slug, colors, is_current, name, images }]
- * onSelect(item) — typically navigate to sibling PDP
+ * onSelect(item) — e.g. change variant or navigate within the same PDP
  * onPreview(item) — optional hover/focus preview (e.g. swap card image)
  */
 export default function ColorSwatches({
@@ -143,7 +143,7 @@ export function colorVariantOptions(product) {
   return Array.isArray(colorVariant?.options) ? colorVariant.options : [];
 }
 
-/** PDP link for a swatch item (sibling slug or same product + ?color=) */
+/** PDP link for a swatch item (same product + ?color= when applicable) */
 export function productColorHref(item) {
   if (!item?.slug) return null;
   const base = `/products/${encodeURIComponent(item.slug)}`;
@@ -177,34 +177,9 @@ export function matchColorOption(options, colorParam) {
   );
 }
 
-function siblingColorLabel(sibling, productName = '') {
-  const fromColors = labelFor(sibling?.colors, productName);
-  if (fromColors) return fromColors;
-  // Never use the sibling product title as the color name
-  return '';
-}
-
 export function buildColorSwatchItems(product) {
   if (!product) return [];
   const productName = product.name || '';
-
-  // Linked sibling products (separate PDPs) take priority
-  const siblings = Array.isArray(product.color_siblings) ? product.color_siblings : [];
-  if (siblings.length > 1) {
-    return siblings.map((s) => {
-      const colors = Array.isArray(s.colors) ? s.colors : [];
-      const colorLabel = siblingColorLabel(s, s.name || productName);
-      return {
-        ...s,
-        // Keep product title in product_name; display name is color only
-        product_name: s.name,
-        name: colorLabel || 'Color',
-        colors,
-        images: s.image ? [s.image] : [],
-        is_current: Boolean(s.is_current) || String(s.id) === String(product.id),
-      };
-    });
-  }
 
   // Color variant on this product → one radio per option (e.g. Red + Blue)
   const options = colorVariantOptions(product);
@@ -225,23 +200,6 @@ export function buildColorSwatchItems(product) {
         option_id: opt.id,
       };
     });
-  }
-
-  // Single sibling entry or product-level colors → one swatch (may be multicolor)
-  if (siblings.length === 1) {
-    const s = siblings[0];
-    const colors = Array.isArray(s.colors) ? s.colors : [];
-    const colorLabel = siblingColorLabel(s, s.name || productName);
-    return [
-      {
-        ...s,
-        product_name: s.name,
-        name: colorLabel || 'Color',
-        colors,
-        images: s.image ? [s.image] : [],
-        is_current: true,
-      },
-    ];
   }
 
   const colors = Array.isArray(product.colors) ? product.colors : [];

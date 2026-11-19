@@ -73,7 +73,7 @@ function CategoryNavBar({ activeSlug }) {
 
   if (categories.length === 0) return null;
 
-  const links = [{ slug: '', name: 'All Chairs' }, ...categories];
+  const links = [{ slug: '', name: 'All Products' }, ...categories];
   const overflowing = canPrev || canNext;
 
   return (

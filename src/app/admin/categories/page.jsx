@@ -391,7 +391,7 @@ export default function CategoriesAdminPage() {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Plastic Chairs, Office Chairs"
+                    placeholder="e.g. Necklaces, Bangles, Beaded Accessories"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className={styles.formInput}

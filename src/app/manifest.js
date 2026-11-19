@@ -1,14 +1,14 @@
-import { BRAND, HOME_DESCRIPTION } from '@/lib/seo';
+import { BRAND, BRAND_SHORT, HOME_DESCRIPTION } from '@/lib/seo';
 
 export default function manifest() {
   return {
     name: BRAND,
-    short_name: BRAND,
+    short_name: BRAND_SHORT,
     description: HOME_DESCRIPTION,
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
-    theme_color: '#4a2c17',
+    theme_color: '#155d27',
     icons: [
       { src: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
       { src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },

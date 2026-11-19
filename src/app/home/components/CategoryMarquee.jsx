@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Armchair } from 'lucide-react';
 import productService from '@/lib/services/products';
+import { FEATURES } from '@/lib/features';
 import styles from './categoryMarquee.module.css';
 
 const SPEED_DESKTOP = 45; // px per second
@@ -24,6 +25,7 @@ export default function CategoryMarquee() {
   const trackRef = useRef(null);
 
   useEffect(() => {
+    if (!FEATURES.floatingCategorySection) return undefined;
     let mounted = true;
     productService
       .getCategories()
@@ -163,7 +165,7 @@ export default function CategoryMarquee() {
     };
   }, [categories, copies]);
 
-  if (!categories.length) return null;
+  if (!FEATURES.floatingCategorySection || !categories.length) return null;
 
   const loop = Array.from({ length: copies }, (_, copy) =>
     categories.map((cat) => ({ cat, copy }))

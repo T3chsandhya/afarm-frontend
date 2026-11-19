@@ -1,0 +1,60 @@
+.addCard {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(21, 93, 39, 0.15);
+  background: rgba(21, 93, 39, 0.04);
+}
+
+.addTitle {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.addGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .addGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.addActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.pickupCode {
+  font-size: 0.85rem;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.rowActions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(21, 93, 39, 0.25);
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.iconBtn:hover {
+  background: rgba(21, 93, 39, 0.06);
+}

@@ -6,6 +6,28 @@
   width: 100%;
 }
 
+/* Desktop: wrapper is layout-neutral */
+.homeTop {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .homeTop {
+    display: contents;
+  }
+}
+
+/* Mobile home: header + banner share one 1:1 square; banner fills, header overlays */
+@media (max-width: 767px) {
+  .homeTop {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #000;
+  }
+}
+
 .main {
   flex: 1;
   width: 100%;
@@ -73,6 +95,12 @@
   font-size: 1.25rem;
   color: var(--accent);
   flex-shrink: 0;
+}
+
+.trustIconImg {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
 }
 
 .trustTitle {
@@ -157,7 +185,7 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  color: #5c3d2e;
+  color: #155d27;
   font-weight: 600;
   font-size: var(--text-body);
   display: inline-flex;
@@ -175,8 +203,8 @@
 .categoryEmpty {
   grid-column: 1 / -1;
   padding: 48px 24px;
-  background: #f8fafc;
-  border: 1px dashed #cbd5e1;
+  background: var(--section-alt-bg);
+  border: 1px dashed #dccfc4;
   border-radius: var(--radius-lg);
   text-align: center;
   color: #64748b;
@@ -229,7 +257,7 @@
 .productImageWrap {
   position: relative;
   aspect-ratio: 1;
-  background: #f3eee8;
+  background: #eef6f0;
   overflow: hidden;
 }
 
@@ -283,7 +311,7 @@
   justify-content: center;
   color: #94a3b8;
   font-size: 0.85rem;
-  background: linear-gradient(135deg, #f8f5f1 0%, #ebe4dc 100%);
+  background: linear-gradient(135deg, #f3f9f5 0%, #dceee2 100%);
 }
 
 .productBody {
@@ -406,17 +434,17 @@
 
 .productSkeleton {
   min-height: 320px;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background: linear-gradient(90deg, #f5faf7 25%, #eef6f0 50%, #f5faf7 75%);
   background-size: 200% 100%;
   animation: categoryShimmer 1.8s infinite;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d8ebe0;
   pointer-events: none;
 }
 
 .productEmpty {
   padding: 40px 24px;
-  background: #f8fafc;
-  border: 1px dashed #cbd5e1;
+  background: var(--section-alt-bg);
+  border: 1px dashed #dccfc4;
   text-align: center;
   color: #64748b;
   font-size: var(--text-body);
@@ -472,7 +500,7 @@
 }
 
 .principleIcon {
-  width: clamp(110px, 10vw, 140px);
+  width: clamp(130px, 11vw, 176px);
   aspect-ratio: 1;
   margin-bottom: 6px;
   transition: transform 0.35s ease;
@@ -514,236 +542,32 @@
   max-width: 30ch;
 }
 
-/* ================= REVIEWS ================= */
-.reviewsSection {
-  max-width: 100%;
-  width: 100%;
-  padding-left: clamp(16px, 2vw, 32px);
-  padding-right: clamp(16px, 2vw, 32px);
-  padding-top: var(--section-space-y);
-  overflow: hidden;
-  padding-bottom: clamp(28px, 4vw, 40px);
-}
-
-.reviewCaption {
-  margin: 12px 0 0;
-  font-size: clamp(0.85rem, 1vw, 0.95rem);
-  color: var(--text-muted);
-  line-height: 1.45;
-  text-align: center;
-  max-width: 36ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.reviewVideoCarousel {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
-}
-
-.reviewVideoViewport {
-  width: min(100%, 420px);
-  overflow: hidden;
-}
-
-.reviewVideoTrack {
-  display: flex;
-  transition: transform 0.45s ease;
-  will-change: transform;
-}
-
-.reviewVideoSlide {
-  flex: 0 0 100%;
-  min-width: 100%;
-}
-
-.reviewVideoCard {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.reviewVideoFrame {
-  width: 100%;
-  aspect-ratio: 9 / 16;
-  max-height: min(68vh, 560px);
-  background: #000000;
-  border: 1px solid var(--border, #e2e8f0);
-  overflow: hidden;
-  position: relative;
-}
-
-.reviewVideo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.reviewVideoControls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-
-.reviewNavBtn {
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border, #e2e8f0);
-  background: #ffffff;
-  color: var(--text-main);
-  cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.reviewNavBtn:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
-}
-
-.reviewDots {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.reviewDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: none;
-  padding: 0;
-  background: #cbd5e1;
-  cursor: pointer;
-}
-
-.reviewDotActive {
-  background: #000000;
-}
-
-.reviewMarquee {
-  width: 100%;
-  overflow: hidden;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 6%,
-    #000 94%,
-    transparent
-  );
-}
-
-.reviewMarqueeTrack {
-  display: flex;
-  width: max-content;
-  gap: clamp(18px, 2.5vw, 28px);
-  padding: 12px 0 8px;
-  animation: reviewMarqueeRtl 48s linear infinite;
-  will-change: transform;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .reviewMarqueeTrack:hover {
-    animation-play-state: paused;
-  }
-}
-
-.reviewImageCard {
-  margin: 0;
-  flex: 0 0 auto;
-  width: min(220px, 58vw);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.reviewImageFrame {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  background: #f3eee8;
-  border: 1px solid var(--border, #e2e8f0);
-  overflow: hidden;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-}
-
-.reviewImageTiltLeft .reviewImageFrame {
-  transform: rotate(-7deg);
-  transform-origin: center center;
-}
-
-.reviewImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.reviewImageCard .reviewCaption {
-  max-width: 100%;
-  margin-top: 14px;
-  font-size: 0.82rem;
-}
-
-@keyframes reviewMarqueeRtl {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reviewMarqueeTrack {
-    animation: none;
-    flex-wrap: wrap;
-    width: 100%;
-    max-width: var(--container-2xl);
-    margin: 0 auto;
-    padding-inline: var(--gutter-inline);
-    justify-content: center;
-  }
-
-  .reviewVideoTrack {
-    transition: none;
-  }
-}
-
 /* ================= WHO WE ARE ================= */
 .aboutSection {
   max-width: 100%;
 }
 
 .aboutGrid {
-  max-width: 1100px;
+  max-width: 1240px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 520px) minmax(0, 1fr);
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
 }
 
-.aboutVideoFrame {
+.aboutMosaicFrame {
   width: 100%;
-  aspect-ratio: 9 / 16;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #000000;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  max-width: 520px;
+  justify-self: center;
 }
 
-.aboutVideo {
+.aboutHeroImg {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
+  object-fit: contain;
+  border-radius: 12px;
 }
 
 .aboutContent {
@@ -825,6 +649,27 @@
 }
 
 /* ================= BREAKPOINT MEDIA QUERIES ================= */
+@media (min-width: 1025px) {
+  .trustIcon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .trustIconImg {
+    width: 64px;
+    height: 64px;
+  }
+
+  .aboutGrid {
+    grid-template-columns: minmax(0, 600px) minmax(0, 1fr);
+    gap: clamp(48px, 6vw, 96px);
+  }
+
+  .aboutMosaicFrame {
+    max-width: 600px;
+  }
+}
+
 @media (max-width: 1024px) {
   .principlesList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -885,20 +730,6 @@
     overflow: visible;
   }
 
-  .reviewsSection,
-  .section.reviewsSection {
-    margin-top: var(--section-space-mobile);
-    padding-top: 0;
-    padding-left: 0;
-    padding-right: 0;
-    overflow: visible;
-  }
-
-  .reviewsSection .sectionHeader {
-    padding-left: clamp(16px, 4vw, 24px);
-    padding-right: clamp(16px, 4vw, 24px);
-  }
-
   .principlesList {
     gap: 12px;
   }
@@ -923,11 +754,6 @@
     max-width: none;
     font-size: var(--text-body);
     line-height: 1.45;
-  }
-
-  .reviewMarquee {
-    padding-left: 0;
-    padding-right: 0;
   }
 
   .productGrid {
@@ -955,7 +781,7 @@
     font-size: 18px;
   }
 
-  /* Mobile order: title + subtitle, video, paragraphs, buttons. The content column dissolves
+  /* Mobile order: title + subtitle, mosaic, paragraphs, buttons. The content column dissolves
      into the grid so its header can sit above the video. */
   .aboutGrid {
     grid-template-columns: 1fr;
@@ -972,10 +798,9 @@
     margin-bottom: 0;
   }
 
-  .aboutVideoFrame {
+  .aboutMosaicFrame {
     max-width: 320px;
     margin: 8px auto 14px;
-    border-radius: 12px;
   }
 
   .aboutText {

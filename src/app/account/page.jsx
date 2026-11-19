@@ -2,7 +2,7 @@ import AccountScreen from './AccountScreen';
 
 export const metadata = {
   title: 'My Account',
-  description: 'Manage your ChairDekho profile, address, and orders.',
+  description: 'Manage your profile, address, and orders.',
   robots: { index: false, follow: false },
 };
 

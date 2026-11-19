@@ -1,56 +1,67 @@
 import { ASSETS } from '@/lib/assets';
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://chairdekho.in').replace(
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(
   /\/+$/,
   ''
 );
-export const BRAND = 'ChairDekho';
-export const INSTAGRAM_URL = 'https://www.instagram.com/chairdekho/';
-export const SOCIAL_LINKS = [INSTAGRAM_URL];
+export const BRAND = process.env.NEXT_PUBLIC_SITE_NAME || 'AFARM';
+export const BRAND_TAGLINE = 'Maharashtra-based group of FPOs';
+export const BRAND_SHORT = 'AFARM';
+export const COLLECTIVE_NAME = 'Maharashtra FPO Collective';
+/** Marketplace listing slug (reference for ONDC / partner storefronts). */
+export const SHOP_LISTING_SLUG = 'afarm-maharashtra-fpo-collective';
+
+export const INSTAGRAM_URL = (process.env.NEXT_PUBLIC_INSTAGRAM_URL || '').trim();
+export const SOCIAL_LINKS = [INSTAGRAM_URL].filter(Boolean);
+
 export const CONTACT = {
-  phone: '+91 96991 64131',
-  phoneIntl: '+91-96991-64131',
-  whatsapp: '919699164131',
-  email: 'brjangu29@gmail.com',
-  street: 'Umadevi Mandir, Umrale, Samel Pada',
-  locality: 'Nalasopara West, Vasai-Virar',
+  phone: '+91 98765 43210',
+  phoneIntl: '+91-98765-43210',
+  whatsapp: '919876543210',
+  email: 'contact@afarm.in',
+  street: '',
+  locality: 'Maharashtra',
   region: 'Maharashtra',
-  postalCode: '401203',
-  address: 'Umadevi Mandir, Umrale, Samel Pada, Nalasopara West, Vasai-Virar, Maharashtra 401203',
-  mapsUrl: 'https://maps.app.goo.gl/U9bcHmccejspLza47',
-  gstin: '27AQEPR1415Q1ZF',
+  postalCode: '',
+  address: 'AFARM — Maharashtra-based group of Farmer Producer Organisations (FPOs), India',
+  mapsUrl:
+    'https://www.google.com/maps/search/?api=1&query=AFARM+Farmer+Producer+Organisation+Maharashtra',
+  gstin: '',
 };
-export const SERVICE_AREAS = ['Vasai', 'Virar', 'Nalasopara', 'Naigaon', 'Bhayandar', 'Mira Road'];
-export const HOME_TITLE = 'All Types of Chairs at Affordable Prices in Vasai Virar | ChairDekho';
+
+export const SERVICE_AREAS = ['Maharashtra', 'India'];
+
+export const HOME_DESCRIPTION_LONG =
+  'AFARM unites Farmer Producer Organisations across Maharashtra into one trusted marketplace. Farmers gather in local FPOs; FPOs come together as AFARM so seasonal harvests, farm-direct staples, and honest quality can move from growers to your kitchen with traceability and fair value at every step. When you shop with us, you support collective farming enterprise, strengthen rural Maharashtra, and choose food sourced closer to the field.';
+
+export const HOME_TITLE = `Farm-Fresh From Maharashtra FPOs | ${BRAND_SHORT}`;
 export const HOME_DESCRIPTION =
-  'All types of chairs available – plastic, arm, armless, dining, garden, office & kids chairs. Buy now at affordable prices in Vasai, Virar & Nalasopara.';
+  'Shop seasonal harvests and farm-direct staples from AFARM — a Maharashtra-based group of FPOs delivering honest quality from growers to your home. Pan-India delivery.';
+
 export const SITE_KEYWORDS = [
-  'chairs in Vasai',
-  'chairs in Virar',
-  'chair shop in Vasai Virar',
-  'chair shop in Nalasopara',
-  'buy chairs online',
-  'affordable chairs',
-  'chairs at best price',
-  'plastic chairs',
-  'plastic chair price',
-  'arm chairs',
-  'armless chairs',
-  'dining chairs',
-  'garden chairs',
-  'office chairs',
-  'kids chairs',
-  'plastic stools',
-  'chairs near me',
-  'ChairDekho',
+  'AFARM',
+  'Maharashtra FPO',
+  'farmer producer organisation',
+  'farm direct groceries',
+  'seasonal harvest Maharashtra',
+  'farm to home India',
+  'FPO collective Maharashtra',
+  'fresh staples online',
+  'agri marketplace India',
+  BRAND_SHORT,
+  COLLECTIVE_NAME,
 ];
 
+const defaultOgImageUrl = ASSETS.ogImage.startsWith('http')
+  ? ASSETS.ogImage
+  : `${SITE_URL}${ASSETS.ogImage.startsWith('/') ? '' : '/'}${ASSETS.ogImage}`;
+
 export const DEFAULT_OG_IMAGE = {
-  url: ASSETS.ogImage,
-  width: 1734,
-  height: 907,
-  type: 'image/webp',
-  alt: BRAND,
+  url: defaultOgImageUrl,
+  width: 512,
+  height: 512,
+  type: 'image/png',
+  alt: `${BRAND} – ${BRAND_TAGLINE}`,
 };
 
 const TITLE_MAX = 65;
@@ -103,24 +114,24 @@ export const truncate = (text, max) => {
   return `${atWord.replace(/[\s,.;:–—-]+$/, '')}…`;
 };
 
-/** Drops the "| CHAIRDEKHO" style suffix admins add to product names. */
+/** Drops store-name suffixes admins add to product titles. */
 export const cleanProductName = (name) =>
   String(name || '')
     .replace(/\s*[|–—-]\s*chair\s*dekho(\.com)?\s*$/i, '')
+    .replace(/\s*[|–—-]\s*amakund(\s*producer(\s*company)?(\s*limited)?)?\s*$/i, '')
+    .replace(/\s*[|–—-]\s*afarm(\s*(\(|\[)?\s*maharashtra)?\s*$/i, '')
     .replace(/\s+/g, ' ')
     .trim();
 
 const PRODUCT_TYPES = [
-  { key: 'office chair', label: 'office chair', plural: 'office chairs', re: /office|revolving|executive|ergonomic|computer|study/i },
-  { key: 'kids chair', label: 'kids chair', plural: 'kids chairs', re: /\bkids?\b|child|baby/i },
-  { key: 'garden chair', label: 'garden chair', plural: 'garden chairs', re: /garden|outdoor|patio|lawn|balcony/i },
-  { key: 'dining chair', label: 'dining chair', plural: 'dining chairs', re: /dining|cafe|restaurant/i },
-  { key: 'armless chair', label: 'armless chair', plural: 'armless chairs', re: /armless|without\s+arms?/i },
-  { key: 'arm chair', label: 'arm chair', plural: 'arm chairs', re: /arm\s*chair|with\s+arms?/i },
-  { key: 'stool', label: 'stool', plural: 'stools', re: /\bstools?\b/i },
-  { key: 'table', label: 'table', plural: 'tables', re: /\btables?\b/i },
-  { key: 'plastic chair', label: 'plastic chair', plural: 'plastic chairs', re: /plastic|moulded|molded|monobloc/i },
-  { key: 'chair', label: 'chair', plural: 'chairs', re: /\bchairs?\b/i },
+  { key: 'grain', label: 'grain', plural: 'grains', re: /wheat|rice|jowar|bajra|ragi|grain|atta|flour/i },
+  { key: 'pulse', label: 'pulse', plural: 'pulses', re: /dal|pulse|lentil|bean|chana|moong|urad/i },
+  { key: 'oil', label: 'edible oil', plural: 'edible oils', re: /oil|ghee|cold.?pressed/i },
+  { key: 'spice', label: 'spice', plural: 'spices', re: /spice|masala|turmeric|chilli/i },
+  { key: 'vegetable', label: 'vegetable', plural: 'vegetables', re: /vegetable|onion|potato|tomato|fresh produce/i },
+  { key: 'fruit', label: 'fruit', plural: 'fruits', re: /fruit|mango|banana|citrus/i },
+  { key: 'staple', label: 'staple', plural: 'staples', re: /staple|grocery|kitchen|pantry/i },
+  { key: 'produce', label: 'farm product', plural: 'farm products', re: /farm|organic|natural|harvest/i },
 ];
 
 export function detectProductType(product) {
@@ -157,11 +168,11 @@ export function buildProductTitle(product) {
   const override = String(product?.seo_title || '').trim();
   if (override) return override;
 
-  const name = cleanProductName(product?.name) || 'Chair';
+  const name = cleanProductName(product?.name) || 'Farm product';
   const candidates = [
-    `${name} – Best Price in Vasai Virar | ${BRAND}`,
-    `${name} – Best Price | ${BRAND}`,
-    `${name} | ${BRAND}`,
+    `${name} – Farm Direct | ${BRAND_SHORT}`,
+    `${name} – Maharashtra FPO | ${BRAND_SHORT}`,
+    `${name} | ${BRAND_SHORT}`,
     name,
   ];
   return candidates.find((c) => c.length <= TITLE_MAX) || truncate(name, TITLE_MAX);
@@ -202,18 +213,18 @@ export function buildProductDescription(product, defs = []) {
   const override = String(product?.seo_description || '').trim();
   if (override) return truncate(override, DESCRIPTION_MAX);
 
-  const name = cleanProductName(product?.name) || 'this chair';
+  const name = cleanProductName(product?.name) || 'this product';
   const { low } = getPriceRange(product);
   const price = formatInr(low);
-  const lead = `Buy ${name} online${price ? ` at ${price}` : ''} from ${BRAND} – affordable chairs delivered in Vasai Virar.`;
+  const lead = `Buy ${name} online${price ? ` at ${price}` : ''} from ${BRAND_SHORT} — farm-direct staples from Maharashtra FPOs, shipped across India.`;
 
-  const highlightKeys = ['color', 'material', 'design', 'finish', 'size', 'weight'];
+  const highlightKeys = ['origin', 'variety', 'grade', 'pack_size', 'weight', 'shelf_life'];
   const highlightValues = highlightKeys
     .map((key) => metaValue(product, key))
     .filter((v) => v && v.length <= 30);
   if (!highlightValues.length) {
     getHighlights(product, defs)
-      .filter((h) => !/product_type|material/i.test(h.key))
+      .filter((h) => !/product_type/i.test(h.key))
       .slice(0, 4)
       .forEach((h) => highlightValues.push(h.value));
   }
@@ -232,19 +243,24 @@ export function buildProductDescription(product, defs = []) {
 export function buildProductKeywords(product) {
   const name = cleanProductName(product?.name);
   const type = detectProductType(product);
-  const color = metaValue(product, 'color');
   const words = [name];
   if (type) {
     words.push(
       type.plural,
       `${type.label} price`,
       `buy ${type.label} online`,
-      `${type.plural} in Vasai Virar`
+      `${type.plural} Maharashtra`,
+      `FPO ${type.label}`,
     );
-    if (color) words.push(`${color.toLowerCase()} ${type.label}`);
   }
   if (product?.category) words.push(product.category);
-  words.push('chairs in Vasai Virar', 'affordable chairs', BRAND);
+  words.push(
+    'farm direct groceries',
+    'Maharashtra FPO',
+    'AFARM online',
+    BRAND_SHORT,
+    COLLECTIVE_NAME
+  );
   return [...new Set(words.filter(Boolean))];
 }
 
@@ -391,27 +407,28 @@ export function buildBreadcrumbJsonLd(items) {
 export function buildOrganizationJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'FurnitureStore',
+    '@type': ['Store', 'OnlineStore'],
     '@id': `${SITE_URL}/#organization`,
     name: BRAND,
-    description: HOME_DESCRIPTION,
+    alternateName: [COLLECTIVE_NAME, BRAND_SHORT, BRAND_TAGLINE],
+    description: HOME_DESCRIPTION_LONG,
     url: SITE_URL,
     logo: absoluteUrl('/icon.png'),
-    image: ASSETS.ogImage,
+    image: defaultOgImageUrl,
     ...(SOCIAL_LINKS.length ? { sameAs: SOCIAL_LINKS } : {}),
     email: CONTACT.email,
     telephone: CONTACT.phoneIntl,
     priceRange: '₹',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: CONTACT.street,
       addressLocality: CONTACT.locality,
       addressRegion: CONTACT.region,
-      postalCode: CONTACT.postalCode,
       addressCountry: 'IN',
+      ...(CONTACT.street ? { streetAddress: CONTACT.street } : {}),
+      ...(CONTACT.postalCode ? { postalCode: CONTACT.postalCode } : {}),
     },
-    taxID: CONTACT.gstin,
-    areaServed: SERVICE_AREAS.map((name) => ({ '@type': 'City', name })),
+    ...(CONTACT.gstin ? { taxID: CONTACT.gstin } : {}),
+    areaServed: SERVICE_AREAS.map((name) => ({ '@type': 'AdministrativeArea', name })),
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
@@ -439,16 +456,16 @@ export function buildCategorySeo(category) {
   const name = String(category?.name || '').trim();
   const autoTitle =
     [
-      `${name} – Buy at Best Price in Vasai Virar | ${BRAND}`,
-      `${name} at Affordable Prices | ${BRAND}`,
-      `${name} | ${BRAND}`,
+      `${name} – Farm Direct | ${BRAND_SHORT}`,
+      `${name} – Shop Online | ${BRAND_SHORT}`,
+      `${name} | ${BRAND_SHORT}`,
     ].find((c) => c.length <= TITLE_MAX) || name;
   const title = String(category?.seo_title || '').trim() || autoTitle;
 
   const intro = stripHtml(category?.description);
   const parts = [
     intro ? (/[.!?]$/.test(intro) ? intro : `${intro}.`) : '',
-    `Shop ${name.toLowerCase()} at affordable prices from ${BRAND}, delivered across Vasai, Virar & Nalasopara.`,
+    `Shop ${name.toLowerCase()} from ${BRAND_SHORT} — sourced through Maharashtra FPOs, delivered across India.`,
     'Secure checkout & cash on delivery.',
   ];
   let autoDescription = '';

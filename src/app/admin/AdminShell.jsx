@@ -4,12 +4,10 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './admin.module.css';
-import apiClient from '@/lib/api';
 import authService from '@/lib/services/auth';
 import { FEATURES } from '@/lib/features';
 
-const SWITCH_TARGET_LABEL = 'ChaklaDekho';
-const BARE_PAGES = ['/admin/login', '/admin/switch'];
+const BARE_PAGES = ['/admin/login'];
 
 /* ── SVG Icon Components (Lucide-style, 20x20) ── */
 
@@ -45,6 +43,16 @@ const IconProducts = (p) => (
     <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
     <path d="m3.3 7 8.7 5 8.7-5" />
     <path d="M12 22V12" />
+  </Icon>
+);
+
+const IconSellers = (p) => (
+  <Icon {...p}>
+    <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+    <path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2" />
+    <path d="M12 12v4" />
+    <path d="M8 12v4" />
+    <path d="M16 12v4" />
   </Icon>
 );
 
@@ -126,15 +134,6 @@ const IconLogout = (p) => (
   </Icon>
 );
 
-const IconSwitch = (p) => (
-  <Icon size={18} {...p}>
-    <path d="M8 3 4 7l4 4" />
-    <path d="M4 7h16" />
-    <path d="m16 21 4-4-4-4" />
-    <path d="M20 17H4" />
-  </Icon>
-);
-
 const IconChevronLeft = (p) => (
   <Icon size={18} {...p}>
     <polyline points="15 18 9 12 15 6" />
@@ -167,6 +166,7 @@ const navSections = [
     label: 'Catalog',
     items: [
       { href: '/admin/products', label: 'Products', icon: IconProducts },
+      { href: '/admin/sellers', label: 'Sellers', icon: IconSellers },
       { href: '/admin/categories', label: 'Categories', icon: IconCategories },
       FEATURES.watchAndShop && { href: '/admin/feeds', label: 'Catalog Feeds', icon: IconFeeds },
     ].filter(Boolean),
@@ -214,8 +214,6 @@ export default function AdminShell({ children }) {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [switching, setSwitching] = useState(false);
-
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 860px)');
     const sync = () => {
@@ -243,7 +241,7 @@ export default function AdminShell({ children }) {
     if (isMobile) setCollapsed(true);
   }, [pathname, isMobile]);
 
-  // Login and switch pages render full-screen without sidebar/header shell
+  // Login page renders full-screen without sidebar/header shell
   if (BARE_PAGES.includes(pathname)) {
     return <>{children}</>;
   }
@@ -252,20 +250,6 @@ export default function AdminShell({ children }) {
     authService.logoutAdmin();
     router.push('/admin/login');
   };
-
-  const handleSwitch = async () => {
-    if (switching) return;
-    setSwitching(true);
-    try {
-      const data = await apiClient.post('/admin/switch/ticket');
-      window.location.assign(data.redirect_url);
-    } catch (err) {
-      setSwitching(false);
-      window.alert(err.message || `Could not switch to ${SWITCH_TARGET_LABEL}`);
-    }
-  };
-
-  const sidebarCompact = collapsed && !isMobile;
 
   const isActive = (href) => pathname === href || pathname.startsWith(href + '/');
 
@@ -277,7 +261,7 @@ export default function AdminShell({ children }) {
         }`}
       >
           <div className={styles.brandRow}>
-            {!(collapsed && !isMobile) && <div className={styles.brand}>ChairDekho Admin</div>}
+            {!(collapsed && !isMobile) && <div className={styles.brand}>AFARM Admin</div>}
             <button
               className={styles.collapseBtn}
               onClick={() => setCollapsed((c) => !c)}
@@ -287,21 +271,6 @@ export default function AdminShell({ children }) {
               {collapsed && !isMobile ? <IconChevronRight /> : <IconChevronLeft />}
             </button>
           </div>
-
-          <button
-            type="button"
-            className={styles.switchBtn}
-            onClick={handleSwitch}
-            disabled={switching}
-            title={`Switch to ${SWITCH_TARGET_LABEL} admin`}
-          >
-            <IconSwitch />
-            {!sidebarCompact && (
-              <span className={styles.navLabel}>
-                {switching ? 'Switching…' : `Switch to ${SWITCH_TARGET_LABEL}`}
-              </span>
-            )}
-          </button>
 
           <nav className={styles.nav}>
             {navSections.map((section, si) => (

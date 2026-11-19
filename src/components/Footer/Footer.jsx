@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import Logo from '@/components/Logo/Logo';
 import { FEATURES } from '@/lib/features';
 import SocialLinks from '@/components/SocialLinks/SocialLinks';
-import { CONTACT } from '@/lib/seo';
+import { HOME_DESCRIPTION, CONTACT } from '@/lib/seo';
 import styles from './footer.module.css';
 
 export default function Footer() {
@@ -12,18 +12,12 @@ export default function Footer() {
       <footer className={styles.footer}>
         <div className={styles.inner}>
           <div className={styles.brandCol}>
-            <Logo size="lg" className={styles.brandLogoLink} />
-            <p className={styles.brandDesc}>
-              All types of chairs at affordable prices – plastic, arm, dining,
-              garden, office and kids chairs, delivered across Vasai, Virar and
-              Nalasopara.
-            </p>
+            <Logo size="lg" className={styles.brandLogoLink} onDark />
+            <p className={styles.brandDesc}>{HOME_DESCRIPTION}</p>
             <SocialLinks className={styles.socialRow} />
-            <div className={styles.brandCopyright}>
-              <p>© {new Date().getFullYear()} ChairDekho. All rights reserved.</p>
-              <p className={styles.brandOf}>A brand of PrimeCraft</p>
+            {CONTACT.gstin ? (
               <p className={styles.gstin}>GST - {CONTACT.gstin}</p>
-            </div>
+            ) : null}
           </div>
 
           <div className={styles.quickCol}>
@@ -67,35 +61,27 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
-        <div className={styles.bottomBar}>
-          <div className={styles.copyrightGroup}>
-            <span>© {new Date().getFullYear()} ChairDekho. All rights reserved.</span>
-            <span className={styles.brandOf}>A brand of PrimeCraft</span>
-            <span className={styles.gstin}>GST - {CONTACT.gstin}</span>
-          </div>
-        </div>
       </footer>
 
       <div className={styles.credit}>
         <span>
           Developed &amp; Managed by{' '}
           <a
-            href="https://zyatechpvt.website"
+            href="https://techsandhya.com/"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.creditLink}
           >
-            Zyatech Private Limited
+            Sandhya Technology Solutions and Operations LLP
           </a>
         </span>
         <a
-          href="https://zyatechpvt.website"
+          href="https://techsandhya.com/"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.creditBtn}
-          aria-label="Visit Zyatech Private Limited website"
-          title="zyatechpvt.website"
+          aria-label="Visit Sandhya Technology Solutions and Operations LLP website"
+          title="techsandhya.com"
         >
           <ArrowUpRight size={16} strokeWidth={2.25} aria-hidden="true" />
         </a>

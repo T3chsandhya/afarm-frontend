@@ -42,7 +42,7 @@ const NAMED_COLORS = {
 };
 
 /** Brand default previously used as emptyOption hex — treat as "unset" for named colors */
-export const DEFAULT_OPTION_HEX = '#5c3d2e';
+export const DEFAULT_OPTION_HEX = '#155d27';
 
 function normalizeColorKey(name) {
   return String(name || '')

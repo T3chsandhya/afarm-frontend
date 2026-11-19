@@ -1,0 +1,181 @@
+.mosaic {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  aspect-ratio: 4 / 4.6;
+  background: #6d7354;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 20px 44px rgba(21, 93, 39, 0.18);
+}
+
+.gridLines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.gridLines span {
+  position: absolute;
+  background: rgba(210, 228, 170, 0.85);
+}
+
+.lineH1 {
+  top: 28%;
+  left: -8%;
+  right: -8%;
+  height: 2px;
+}
+
+.lineH2 {
+  top: 62%;
+  left: -10%;
+  right: -6%;
+  height: 2px;
+}
+
+.lineV1 {
+  left: 32%;
+  top: -6%;
+  bottom: -6%;
+  width: 2px;
+}
+
+.lineV2 {
+  left: 68%;
+  top: -8%;
+  bottom: -4%;
+  width: 2px;
+}
+
+.tile {
+  position: absolute;
+  overflow: hidden;
+  z-index: 1;
+  background: #3d3d3d;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.tileLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.tileImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.tileLink:hover .tileImg {
+  transform: scale(1.05);
+}
+
+.tileFallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(145deg, #155d27, #0f4a1d);
+}
+
+/* Organic placement — not a rigid grid */
+.tileA {
+  top: 2%;
+  left: 3%;
+  width: 46%;
+  height: 34%;
+  transform: rotate(-2.5deg);
+}
+
+.tileB {
+  top: 6%;
+  right: 2%;
+  width: 44%;
+  height: 30%;
+  transform: rotate(2deg);
+}
+
+.tileC {
+  bottom: 16%;
+  left: 1%;
+  width: 42%;
+  height: 32%;
+  transform: rotate(1.5deg);
+}
+
+.tileD {
+  bottom: 4%;
+  right: 3%;
+  width: 48%;
+  height: 36%;
+  transform: rotate(-1.5deg);
+}
+
+.logoWrap {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(108px, 34%, 148px);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+  border: 3px solid rgba(210, 228, 170, 0.95);
+}
+
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.placeholder {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 4 / 4.6;
+  margin: 0 auto;
+  background: var(--section-alt-bg, #f5faf7);
+  border-radius: 4px;
+  animation: mosaicPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes mosaicPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .mosaic {
+    max-width: 320px;
+  }
+
+  .logoWrap {
+    width: clamp(92px, 38%, 120px);
+    padding: 10px;
+  }
+}

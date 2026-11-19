@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, ImagePlus } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ImagePlus, ShoppingCart } from 'lucide-react';
+import ShopNowButton from '@/components/ShopNowButton';
 import { BANNER_SIZES } from '@/lib/banners';
 import styles from './banner.module.css';
 
@@ -98,20 +99,66 @@ export default function BannerSlider({ slides, device }) {
               aria-label={`${i + 1} of ${count}`}
               aria-hidden={i !== index}
             >
-              <SlideLink href={slide.href}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={slide.src}
-                  alt={slide.alt}
-                  width={size.width}
-                  height={size.height}
-                  className={styles.slideImage}
-                  loading="lazy"
-                  decoding="async"
-                  fetchpriority={i === 0 ? 'high' : 'low'}
-                  draggable={false}
-                />
-              </SlideLink>
+              {slide.hasHeroCopy ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={slide.src}
+                    alt={slide.alt}
+                    width={size.width}
+                    height={size.height}
+                    className={styles.slideImage}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    fetchPriority={i === 0 ? 'high' : 'low'}
+                    draggable={false}
+                  />
+                  <div className={styles.slideHeroPanel}>
+                    <div className={styles.slideCopyInner}>
+                      {slide.heroLine1 ? (
+                        <p className={styles.slideEyebrow}>{slide.heroLine1}</p>
+                      ) : null}
+                      {slide.heroLine2 ? (
+                        <h2 className={styles.slideHeadline}>
+                          <span className={styles.slideHeadlineRow}>
+                            <span>{slide.heroLine2}</span>
+                            <ShoppingCart
+                              className={styles.slideHeadlineIcon}
+                              strokeWidth={1.25}
+                              aria-hidden
+                            />
+                          </span>
+                        </h2>
+                      ) : null}
+                      {slide.heroBody ? (
+                        <p className={styles.slideBody}>{slide.heroBody}</p>
+                      ) : null}
+                      <ShopNowButton
+                        href={slide.ctaHref || '/shop'}
+                        text={slide.ctaLabel || 'Shop now'}
+                        size="lg"
+                        variant="onDark"
+                        className={styles.slideCta}
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <SlideLink href={slide.href}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={slide.src}
+                    alt={slide.alt}
+                    width={size.width}
+                    height={size.height}
+                    className={styles.slideImage}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    fetchPriority={i === 0 ? 'high' : 'low'}
+                    draggable={false}
+                  />
+                </SlideLink>
+              )}
             </div>
           ))}
         </div>

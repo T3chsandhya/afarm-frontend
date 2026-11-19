@@ -48,7 +48,7 @@ const RANGE_CAPTION = {
   '12m': 'last 12 months',
 };
 
-const ACCENT = '#5c3d2e';
+const ACCENT = '#155d27';
 
 const inr = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
 

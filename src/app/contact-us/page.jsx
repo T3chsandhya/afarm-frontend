@@ -3,39 +3,45 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import PageHeroBanner from '@/components/PageHeroBanner/PageHeroBanner';
 import { Mail, Phone, Clock, MapPin } from 'lucide-react';
-import { CONTACT, pageMetadata } from '@/lib/seo';
+import { BRAND, BRAND_SHORT, CONTACT, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Contact Us | ChairDekho – Chair Shop in Nalasopara, Vasai Virar',
+  title: `Contact Us | ${BRAND_SHORT} – Maharashtra`,
   description:
-    'Contact ChairDekho for chair orders, bulk enquiries, returns or product questions. Call, WhatsApp or visit us in Nalasopara West, Vasai-Virar.',
+    'Contact AFARM for orders, FPO enquiries, or product questions. Call, WhatsApp, email, or reach our Maharashtra-based FPO collective team.',
   path: '/contact-us',
 });
+
+const phoneHref = `tel:+${CONTACT.whatsapp}`;
 
 const contactInfo = [
   {
     icon: Mail,
-    label: 'Email Support',
+    label: 'Email',
     value: CONTACT.email,
-    extra: 'We typically respond within 24 hours',
+    href: `mailto:${CONTACT.email}`,
+    extra: 'We typically respond within 24–48 hours',
   },
   {
     icon: Phone,
     label: 'Call / WhatsApp',
     value: CONTACT.phone,
+    href: phoneHref,
     extra: 'Orders, bulk enquiries and support',
   },
   {
     icon: Clock,
     label: 'Operating Hours',
-    value: 'Mon – Sat: 10:00 AM – 7:00 PM IST',
-    extra: 'Closed on Sundays and national holidays',
+    value: 'Mon – Sat: 10:00 AM – 6:00 PM IST',
+    extra: 'Timings may vary on local holidays',
   },
   {
     icon: MapPin,
     label: 'Store Address',
-    value: 'ChairDekho by PrimeCraft',
-    extra: `${CONTACT.address} · GST - ${CONTACT.gstin}`,
+    value: BRAND,
+    href: CONTACT.mapsUrl,
+    extra: CONTACT.address,
+    external: true,
   },
 ];
 
@@ -44,35 +50,46 @@ export default function ContactUsPage() {
     <div className={styles.container}>
       <Header />
       <PageHeroBanner
+        variant="simple"
         title="Contact Us"
-        subtitle="We'd love to hear from you. Send us a message or reach out via our support channels."
+        subtitle="Reach out for orders, FPO partnerships, or questions about our farm-direct range."
       />
 
       <main className={styles.main}>
-        {/* ── Contact Info Cards ── */}
         <section className={styles.infoSection}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>GET IN TOUCH</h2>
             <p className={styles.sectionSubtitle}>Ways to Reach Us</p>
           </div>
           <div className={styles.infoGrid}>
-            {contactInfo.map((item, idx) => {
+            {contactInfo.map((item) => {
               const IconComp = item.icon;
               return (
-                <div key={idx} className={styles.infoCard}>
+                <article key={item.label} className={styles.infoCard}>
                   <div className={styles.infoIcon}>
-                    <IconComp size={22} strokeWidth={1.5} />
+                    <IconComp size={22} strokeWidth={1.5} aria-hidden="true" />
                   </div>
                   <span className={styles.infoLabel}>{item.label}</span>
-                  <span className={styles.infoValue}>{item.value}</span>
-                  <span className={styles.infoExtra}>{item.extra}</span>
-                </div>
+                  {item.href ? (
+                    <a
+                      className={styles.infoValueLink}
+                      href={item.href}
+                      {...(item.external
+                        ? { target: '_blank', rel: 'noopener noreferrer' }
+                        : {})}
+                    >
+                      {item.value}
+                    </a>
+                  ) : (
+                    <p className={styles.infoValue}>{item.value}</p>
+                  )}
+                  <p className={styles.infoExtra}>{item.extra}</p>
+                </article>
               );
             })}
           </div>
         </section>
 
-        {/* ── Contact Form ── */}
         <section className={styles.formSection}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>SEND US A MESSAGE</h2>
@@ -83,44 +100,59 @@ export default function ContactUsPage() {
             <form className={styles.form}>
               <div className={styles.formRow}>
                 <div className={styles.inputGroup}>
-                  <label className={styles.label}>Full Name</label>
+                  <label className={styles.label} htmlFor="contact-name">
+                    Full Name
+                  </label>
                   <input
+                    id="contact-name"
                     type="text"
-                    placeholder="Enter your full name"
+                    placeholder="Your name"
                     className={styles.input}
                   />
                 </div>
                 <div className={styles.inputGroup}>
-                  <label className={styles.label}>Email Address</label>
+                  <label className={styles.label} htmlFor="contact-email">
+                    Email Address
+                  </label>
                   <input
+                    id="contact-email"
                     type="email"
-                    placeholder="you@example.com"
+                    placeholder="Your email address"
                     className={styles.input}
                   />
                 </div>
               </div>
               <div className={styles.formRow}>
                 <div className={styles.inputGroup}>
-                  <label className={styles.label}>Phone Number</label>
+                  <label className={styles.label} htmlFor="contact-phone">
+                    Phone Number
+                  </label>
                   <input
+                    id="contact-phone"
                     type="tel"
-                    placeholder="+91 XXXXX XXXXX"
+                    placeholder="Your mobile number"
                     className={styles.input}
                   />
                 </div>
                 <div className={styles.inputGroup}>
-                  <label className={styles.label}>Subject</label>
+                  <label className={styles.label} htmlFor="contact-subject">
+                    Subject
+                  </label>
                   <input
+                    id="contact-subject"
                     type="text"
-                    placeholder="Order enquiry, feedback, etc."
+                    placeholder="Order, wholesale, or general enquiry"
                     className={styles.input}
                   />
                 </div>
               </div>
               <div className={styles.inputGroup}>
-                <label className={styles.label}>Message</label>
+                <label className={styles.label} htmlFor="contact-message">
+                  Message
+                </label>
                 <textarea
-                  placeholder="Tell us how we can help you…"
+                  id="contact-message"
+                  placeholder="How can we help you today?"
                   className={styles.textarea}
                 />
               </div>

@@ -33,7 +33,7 @@ const faqGroups = [
         a: 'No. Shipping is free on every order, prepaid or Cash on Delivery, with no minimum order value.',
       },
       {
-        q: 'Where should I come to buy chairs offline?',
+        q: 'Where can I visit your shop in person?',
         a: (
           <>
             Come to our shop at {CONTACT.address}.{' '}
@@ -75,7 +75,7 @@ const faqGroups = [
     items: [
       {
         q: 'What is your return policy?',
-        a: 'You can request a return within 7 days of delivery. The chair must be unused, free of scratches, cracks or stains, and returned in its original packaging. Products bought in a clearance or final sale cannot be returned. Received a damaged or wrong item? Contact us within 48 hours of delivery for a free replacement or full refund.',
+        a: 'You can request a return within 7 days of delivery. The item must be unused, undamaged, and returned in its original packaging. Products bought in a clearance or final sale cannot be returned. Received a damaged or wrong item? Contact us within 48 hours of delivery for a free replacement or full refund.',
       },
       {
         q: 'How do I initiate a return?',
@@ -87,32 +87,32 @@ const faqGroups = [
       },
       {
         q: 'Can I exchange a product instead of returning it?',
-        a: 'Yes. Within the 7-day return window you can exchange for a different colour or model of chair, subject to stock availability. Contact our support team to start an exchange. If the chair you want is unavailable, we will refund you instead.',
+        a: 'Yes. Within the 7-day return window you can exchange for a different design or size, subject to stock availability. Contact our support team to start an exchange. If the item you want is unavailable, we will refund you instead.',
       },
     ],
   },
   {
-    group: 'Chairs & Care',
+    group: 'Products & Care',
     items: [
       {
-        q: 'What types of chairs do you sell?',
-        a: 'All types of chairs – plastic chairs, arm chairs, armless chairs, dining chairs, garden and outdoor chairs, office chairs, kids chairs and stools – at affordable prices.',
+        q: 'What do you sell?',
+        a: 'Seasonal produce, grains, pulses, oils, spices, and other farm-direct staples sourced through Maharashtra FPOs united under AFARM.',
       },
       {
-        q: 'Do you deliver in Vasai, Virar and Nalasopara?',
-        a: 'Yes. We are based in Nalasopara West and deliver quickly across Vasai, Virar, Nalasopara, Naigaon and nearby areas. We also ship to other serviceable pin codes across India.',
+        q: 'Do you deliver across India?',
+        a: 'Yes. We ship to serviceable pin codes across India from our Maharashtra FPO network. Enter your pin code at checkout for delivery estimates.',
       },
       {
-        q: 'Do you take bulk orders for shops, offices or events?',
-        a: `Yes. For bulk quantities of chairs for shops, offices, restaurants, function halls or events, call or WhatsApp us on ${CONTACT.phone} for special rates.`,
+        q: 'Do you accept bulk or wholesale orders?',
+        a: `Yes. For bulk orders for retailers, events, or institutions, call or WhatsApp us on ${CONTACT.phone} or email ${CONTACT.email}.`,
       },
       {
-        q: 'Are your chairs good quality?',
-        a: 'Yes. Every chair sold on ChairDekho is checked for strength, finish and comfort, and sourced directly from trusted manufacturers. We stand behind the quality of every chair we sell.',
+        q: 'Are products handmade?',
+        a: 'Yes. Products are graded and packed by member FPOs. Natural variation in size, colour, or harvest batch is normal for farm-sourced goods.',
       },
       {
-        q: 'How should I care for my chairs?',
-        a: 'Wipe plastic chairs with a damp cloth and mild soap, and avoid sharp objects and long exposure to strong heat. For office chairs, check the screws and wheels from time to time. Care instructions are also provided on each product page.',
+        q: 'How should I store food products?',
+        a: 'Keep in a cool, dry place unless the label says refrigerate. Seal opened packs tightly and follow best-before or use-by dates on the product page.',
       },
     ],
   },

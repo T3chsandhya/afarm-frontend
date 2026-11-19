@@ -24,7 +24,7 @@ const emptyOption = () => ({
   mrp: '',
   stock: '0',
   weight: '',
-  hex: '#5c3d2e',
+  hex: '#155d27',
   colors: [],
   image_url: '',
   images: [],
@@ -48,6 +48,8 @@ export default function AddProductPage() {
 
   const [submitting, setSubmitting] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [sellers, setSellers] = useState([]);
+  const [sellerId, setSellerId] = useState('');
   const [metafieldDefs, setMetafieldDefs] = useState([]);
 
   const [name, setName] = useState('');
@@ -71,8 +73,6 @@ export default function AddProductPage() {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [dragActive, setDragActive] = useState(false);
   const [colors, setColors] = useState([]);
-  const [siblingIds, setSiblingIds] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [libraryUrls, setLibraryUrls] = useState([]);
   const [optionLibrary, setOptionLibrary] = useState(null);
@@ -81,17 +81,15 @@ export default function AddProductPage() {
     let mounted = true;
     const load = async () => {
       try {
-        const [cats, fields, productList] = await Promise.all([
+        const [cats, fields, sellerOpts] = await Promise.all([
           adminService.getCategories(),
           adminService.getMetafieldDefinitions(),
-          adminService.getAdminProducts({ limit: 100 }),
+          adminService.getSellerOptions(),
         ]);
         if (!mounted) return;
         const catList = Array.isArray(cats) ? cats.filter((c) => !c.is_reels) : [];
         setCategories(catList);
-        setAllProducts(
-          Array.isArray(productList?.products) ? productList.products : []
-        );
+        setSellers(Array.isArray(sellerOpts?.sellers) ? sellerOpts.sellers : []);
         const defs = Array.isArray(fields)
           ? fields.filter((f) => f.is_active !== false)
           : [];
@@ -288,9 +286,9 @@ export default function AddProductPage() {
           name: (c.name || '').trim() || c.hex,
           hex: c.hex,
         })),
-      color_sibling_ids: siblingIds.map((id) => Number(id)),
       seo_title: seoTitle.trim(),
       seo_description: seoDescription.trim(),
+      seller_id: sellerId ? Number(sellerId) : null,
     };
   };
 
@@ -384,7 +382,7 @@ export default function AddProductPage() {
             <label className={styles.formLabel}>Description</label>
             <p className={styles.formHint}>
               Supports plain text or HTML. You can use HTML for bullet lists and images
-              (upload image to Bunny first, then paste the CDN URL in an{' '}
+              (upload product images above, or paste a full image URL in an{' '}
               <code>&lt;img src=&quot;...&quot; /&gt;</code> tag).
             </p>
             <div className={styles.codeExample}>{`<ul>
@@ -594,7 +592,7 @@ export default function AddProductPage() {
                           <input
                             type="color"
                             className={styles.colorCircle}
-                            value={opt.hex || '#5c3d2e'}
+                            value={opt.hex || '#155d27'}
                             onChange={(e) =>
                               updateOption(vIndex, oIndex, {
                                 hex: e.target.value,
@@ -837,6 +835,27 @@ export default function AddProductPage() {
 
         <aside className={styles.formSidebar}>
           <section className={styles.formSection}>
+            <h2 className={styles.sectionTitle}>Seller</h2>
+            <div className={styles.formGroup} style={{ marginBottom: 16 }}>
+              <label className={styles.formLabel}>Fulfilled by</label>
+              <p className={styles.formHint}>
+                Shiprocket pickup for this product comes from the seller you choose.
+              </p>
+              <select
+                className={styles.formInput}
+                value={sellerId}
+                onChange={(e) => setSellerId(e.target.value)}
+              >
+                <option value="">— No seller —</option>
+                {sellers.map((s) => (
+                  <option key={s.id} value={String(s.id)}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </section>
+          <section className={styles.formSection}>
             <h2 className={styles.sectionTitle}>Categories</h2>
             <div className={styles.formGroup} style={{ marginBottom: 0 }}>
               <label className={styles.formLabel}>
@@ -874,13 +893,7 @@ export default function AddProductPage() {
             </div>
           </section>
 
-          <ProductColorEditor
-            colors={colors}
-            onChangeColors={setColors}
-            siblingIds={siblingIds}
-            onChangeSiblingIds={setSiblingIds}
-            allProducts={allProducts}
-          />
+          <ProductColorEditor colors={colors} onChangeColors={setColors} />
 
           <section className={styles.formSection}>
             <h2 className={styles.sectionTitle}>Product Status</h2>

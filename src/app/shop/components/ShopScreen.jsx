@@ -35,12 +35,15 @@ export default function ShopScreen() {
     searchParams.get('category') || ''
   );
   const [sort, setSort] = useState(searchParams.get('sort') || 'newest');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
 
   useEffect(() => {
     const fromUrl = searchParams.get('category') || '';
     const sortFromUrl = searchParams.get('sort') || 'newest';
+    const qFromUrl = searchParams.get('q') || '';
     setCategorySlug(fromUrl);
     setSort(sortFromUrl);
+    setSearchQuery(qFromUrl);
   }, [searchParams]);
 
   useEffect(() => {
@@ -63,14 +66,15 @@ export default function ShopScreen() {
   }, []);
 
   const syncUrl = useCallback(
-    (nextCategory, nextSort) => {
+    (nextCategory, nextSort, nextQ = searchQuery) => {
       const params = new URLSearchParams();
       if (nextCategory) params.set('category', nextCategory);
       if (nextSort && nextSort !== 'newest') params.set('sort', nextSort);
+      if (nextQ?.trim()) params.set('q', nextQ.trim());
       const qs = params.toString();
       router.replace(qs ? `/shop?${qs}` : '/shop', { scroll: false });
     },
-    [router]
+    [router, searchQuery]
   );
 
   const loadProducts = useCallback(async () => {
@@ -81,6 +85,7 @@ export default function ShopScreen() {
         page_size: 48,
         category_slug: categorySlug || undefined,
         sort: sort || 'newest',
+        search: searchQuery.trim() || undefined,
       });
       const items = Array.isArray(data?.items) ? data.items : [];
       setProducts(items);
@@ -93,7 +98,7 @@ export default function ShopScreen() {
     } finally {
       setLoading(false);
     }
-  }, [categorySlug, sort]);
+  }, [categorySlug, sort, searchQuery]);
 
   useEffect(() => {
     loadProducts();
@@ -120,7 +125,8 @@ export default function ShopScreen() {
   const clearFilters = () => {
     setCategorySlug('');
     setSort('newest');
-    syncUrl('', 'newest');
+    setSearchQuery('');
+    syncUrl('', 'newest', '');
   };
 
   const renderProductCard = (product) => (
@@ -139,7 +145,9 @@ export default function ShopScreen() {
         <div className={styles.pageHeading}>
           <h1 className={styles.sectionTitle}>SHOP</h1>
           <p className={styles.sectionSubtitle}>
-            {selectedCategoryName}
+            {searchQuery.trim()
+              ? `Results for “${searchQuery.trim()}”`
+              : selectedCategoryName}
             {!loading && (
               <span className={styles.resultCount}>
                 {' '}
@@ -179,7 +187,7 @@ export default function ShopScreen() {
           ) : products.length === 0 ? (
             <div className={styles.emptyState}>
               <h2>No products found</h2>
-              <p>Try another category.</p>
+              <p>Try another search or category.</p>
               <button type="button" className={styles.clearBtn} onClick={clearFilters}>
                 Show all products
               </button>
