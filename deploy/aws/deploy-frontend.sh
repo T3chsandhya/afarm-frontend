@@ -17,6 +17,17 @@ fi
 # .npmrc sets optional=false; npm install refreshes deps without failing on lock skew.
 npm install --no-audit --no-fund
 
+# Next build needs ~1–2 GB free for .next + webpack cache (shared small EC2 disks fill fast).
+AVAIL_KB="$(df -k / | awk 'NR==2 {print $4}')"
+if [[ "${AVAIL_KB:-0}" -lt 1500000 ]]; then
+  echo "ERROR: Less than ~1.5 GB free on / (df -h /). Free disk or grow the EBS volume before building." >&2
+  df -h / >&2
+  exit 1
+fi
+
+rm -rf .next
+npm cache clean --force 2>/dev/null || true
+
 export NODE_ENV=production
 npm run build
 

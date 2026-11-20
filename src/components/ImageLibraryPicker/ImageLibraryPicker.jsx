@@ -169,10 +169,10 @@ export default function ImageLibraryPicker({
         </div>
         <div className={styles.body}>
           {loading ? (
-            <p className={styles.empty}>Loading CDN library…</p>
+            <p className={styles.empty}>Loading media library…</p>
           ) : (
             <>
-              <h4 className={styles.sectionLabel}>From CDN library</h4>
+              <h4 className={styles.sectionLabel}>From library</h4>
               <h4 className={styles.sectionSubLabel}>This product</h4>
               {renderGrid(sameProduct, 'No images for this product yet.')}
               <h4 className={styles.sectionSubLabel}>All products</h4>
@@ -200,13 +200,13 @@ export default function ImageLibraryPicker({
                 <Upload size={18} />
                 <span>
                   {uploading
-                    ? 'Uploading to CDN…'
+                    ? 'Uploading…'
                     : 'Choose files to upload (PNG, JPG, WEBP, GIF)'}
                 </span>
               </button>
               {uploadError ? <p className={styles.uploadError}>{uploadError}</p> : null}
               <p className={styles.uploadHint}>
-                Uploaded files go to Bunny CDN (when configured) and are selected
+                Uploaded files are stored in your media backend (S3 / CDN when configured)
                 automatically below.
               </p>
             </div>
