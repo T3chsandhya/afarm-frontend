@@ -128,7 +128,8 @@
   width: 100%;
   padding-left: clamp(16px, 2vw, 32px);
   padding-right: clamp(16px, 2vw, 32px);
-  padding-bottom: 0;
+  padding-top: var(--section-space-y);
+  padding-bottom: var(--section-space-y);
 }
 
 .sectionHeader {
@@ -689,6 +690,7 @@
   .categorySection,
   .section.categorySection {
     margin-top: var(--section-space-mobile);
+    margin-bottom: var(--section-space-mobile);
     padding-top: 0;
     padding-bottom: 0;
     padding-left: 0;

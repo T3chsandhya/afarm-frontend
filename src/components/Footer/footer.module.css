@@ -146,27 +146,55 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
   padding: 12px var(--gutter-inline);
   text-align: center;
 }
 
-@media (max-width: 374px) {
-  .credit {
+.creditCopy {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  max-width: 100%;
+}
+
+.creditLead {
+  display: block;
+  width: 100%;
+  line-height: 1.35;
+}
+
+.creditOrgRow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: min(100%, 24rem);
+  line-height: 1.35;
+}
+
+@media (min-width: 769px) {
+  .creditCopy {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35em;
+    max-width: none;
+  }
+
+  .creditLead {
+    display: inline;
+    width: auto;
+  }
+
+  .creditOrgRow {
+    display: inline-flex;
+    flex-direction: row;
     flex-wrap: nowrap;
-    gap: 8px;
-    font-size: clamp(9px, 2.9vw, 11px);
-    letter-spacing: 0;
-  }
-
-  .credit > span {
-    white-space: nowrap;
-  }
-
-  .creditBtn {
-    width: 24px;
-    height: 24px;
+    max-width: none;
   }
 }
 

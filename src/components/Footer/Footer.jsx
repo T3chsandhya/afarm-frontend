@@ -64,27 +64,29 @@ export default function Footer() {
       </footer>
 
       <div className={styles.credit}>
-        <span>
-          Developed &amp; Managed by{' '}
-          <a
-            href="https://techsandhya.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.creditLink}
-          >
-            Sandhya Technology Solutions and Operations LLP
-          </a>
-        </span>
-        <a
-          href="https://techsandhya.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.creditBtn}
-          aria-label="Visit Sandhya Technology Solutions and Operations LLP website"
-          title="techsandhya.com"
-        >
-          <ArrowUpRight size={16} strokeWidth={2.25} aria-hidden="true" />
-        </a>
+        <p className={styles.creditCopy}>
+          <span className={styles.creditLead}>Developed &amp; Managed by</span>
+          <span className={styles.creditOrgRow}>
+            <a
+              href="https://techsandhya.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.creditLink}
+            >
+              Sandhya Technology Solutions and Operations LLP
+            </a>
+            <a
+              href="https://techsandhya.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.creditBtn}
+              aria-label="Visit Sandhya Technology Solutions and Operations LLP website"
+              title="techsandhya.com"
+            >
+              <ArrowUpRight size={16} strokeWidth={2.25} aria-hidden="true" />
+            </a>
+          </span>
+        </p>
       </div>
     </>
   );

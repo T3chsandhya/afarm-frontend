@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { Pencil, LogOut } from 'lucide-react';
+import { ChevronDown, Pencil, LogOut } from 'lucide-react';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import ShopNowButton from '@/components/ShopNowButton';
@@ -65,6 +65,26 @@ export default function AccountScreen() {
   const [form, setForm] = useState(emptyProfile);
   const [orders, setOrders] = useState([]);
   const [ordersLoading, setOrdersLoading] = useState(true);
+  const [isMobileLayout, setIsMobileLayout] = useState(false);
+  const [openPanels, setOpenPanels] = useState({
+    profile: true,
+    address: false,
+    orders: false,
+  });
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 900px)');
+    const sync = () => setIsMobileLayout(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
+
+  const togglePanel = (key) => {
+    setOpenPanels((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const panelOpen = (key) => !isMobileLayout || openPanels[key];
 
   const load = useCallback(async () => {
     if (!authService.isLoggedIn()) {
@@ -195,10 +215,26 @@ export default function AccountScreen() {
               <div className={styles.formsColumn}>
                 <section className={styles.card}>
                   <div className={styles.cardHead}>
-                    <h2 className={styles.cardTitle}>Profile</h2>
                     <button
                       type="button"
-                      className={styles.iconAction}
+                      className={styles.accordionTrigger}
+                      onClick={() => isMobileLayout && togglePanel('profile')}
+                      aria-expanded={panelOpen('profile')}
+                      aria-controls="account-panel-profile"
+                    >
+                      <h2 className={styles.cardTitle}>Profile</h2>
+                      <ChevronDown
+                        size={20}
+                        strokeWidth={1.75}
+                        className={`${styles.accordionChevron} ${
+                          panelOpen('profile') ? styles.accordionChevronOpen : ''
+                        }`}
+                        aria-hidden
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      className={`${styles.iconAction} ${styles.desktopOnlyAction}`}
                       onClick={handleSignOut}
                       aria-label="Sign out"
                     >
@@ -207,6 +243,12 @@ export default function AccountScreen() {
                     </button>
                   </div>
 
+                  <div
+                    id="account-panel-profile"
+                    className={`${styles.accordionBody} ${
+                      panelOpen('profile') ? '' : styles.accordionBodyCollapsed
+                    }`}
+                  >
                   <div className={styles.nameRow}>
                     {editingName ? (
                       <div className={styles.nameEdit}>
@@ -325,15 +367,32 @@ export default function AccountScreen() {
                       Edit email &amp; date of birth
                     </button>
                   )}
+                  </div>
                 </section>
 
                 <section className={styles.card}>
                   <div className={styles.cardHead}>
-                    <h2 className={styles.cardTitle}>Delivery address</h2>
+                    <button
+                      type="button"
+                      className={styles.accordionTrigger}
+                      onClick={() => isMobileLayout && togglePanel('address')}
+                      aria-expanded={panelOpen('address')}
+                      aria-controls="account-panel-address"
+                    >
+                      <h2 className={styles.cardTitle}>Delivery address</h2>
+                      <ChevronDown
+                        size={20}
+                        strokeWidth={1.75}
+                        className={`${styles.accordionChevron} ${
+                          panelOpen('address') ? styles.accordionChevronOpen : ''
+                        }`}
+                        aria-hidden
+                      />
+                    </button>
                     {!editingAddress && (
                       <button
                         type="button"
-                        className={styles.editIconBtn}
+                        className={`${styles.editIconBtn} ${styles.desktopOnlyAction}`}
                         aria-label="Edit address"
                         onClick={() => setEditingAddress(true)}
                       >
@@ -341,9 +400,15 @@ export default function AccountScreen() {
                       </button>
                     )}
                   </div>
+                  <div
+                    id="account-panel-address"
+                    className={`${styles.accordionBody} ${
+                      panelOpen('address') ? '' : styles.accordionBodyCollapsed
+                    }`}
+                  >
                   <p className={styles.cardHint}>
-                    Saved here for faster checkout. Placing an order also updates this
-                    address.
+                    Saved here for faster checkout. Your latest delivery address from
+                    checkout is saved here automatically when you place an order.
                   </p>
 
                   {editingAddress ? (
@@ -455,20 +520,64 @@ export default function AccountScreen() {
                         </button>
                       </div>
                     </div>
-                  ) : addressPreview ? (
-                    <p className={styles.addressBlock}>{addressPreview}</p>
                   ) : (
-                    <p className={styles.emptyHint}>No address saved yet.</p>
+                    <>
+                      {addressPreview ? (
+                        <p className={styles.addressBlock}>{addressPreview}</p>
+                      ) : (
+                        <p className={styles.emptyHint}>No address saved yet.</p>
+                      )}
+                      {isMobileLayout ? (
+                        <button
+                          type="button"
+                          className={`${styles.primaryBtn} ${styles.addressPanelAction}`}
+                          onClick={() => setEditingAddress(true)}
+                        >
+                          {addressPreview ? 'Edit address' : 'Add address'}
+                        </button>
+                      ) : !addressPreview ? (
+                        <button
+                          type="button"
+                          className={`${styles.secondaryBtn} ${styles.addressPanelAction}`}
+                          onClick={() => setEditingAddress(true)}
+                        >
+                          Add address
+                        </button>
+                      ) : null}
+                    </>
                   )}
+                  </div>
                 </section>
               </div>
 
               <aside className={styles.ordersColumn}>
                 <section className={styles.card}>
                   <div className={styles.cardHead}>
-                    <h2 className={styles.cardTitle}>My orders</h2>
+                    <button
+                      type="button"
+                      className={styles.accordionTrigger}
+                      onClick={() => isMobileLayout && togglePanel('orders')}
+                      aria-expanded={panelOpen('orders')}
+                      aria-controls="account-panel-orders"
+                    >
+                      <h2 className={styles.cardTitle}>My orders</h2>
+                      <ChevronDown
+                        size={20}
+                        strokeWidth={1.75}
+                        className={`${styles.accordionChevron} ${
+                          panelOpen('orders') ? styles.accordionChevronOpen : ''
+                        }`}
+                        aria-hidden
+                      />
+                    </button>
                   </div>
 
+                  <div
+                    id="account-panel-orders"
+                    className={`${styles.accordionBody} ${
+                      panelOpen('orders') ? '' : styles.accordionBodyCollapsed
+                    }`}
+                  >
                   {ordersLoading ? (
                     <p className={styles.emptyHint}>Loading orders…</p>
                   ) : orders.length === 0 ? (
@@ -558,6 +667,7 @@ export default function AccountScreen() {
                       })}
                     </ul>
                   )}
+                  </div>
                 </section>
 
                 <div className={styles.sideActions}>
@@ -566,6 +676,22 @@ export default function AccountScreen() {
                   </Link>
                 </div>
               </aside>
+            </div>
+          )}
+
+          {!loading && (
+            <div className={styles.mobileBottomActions}>
+              <Link href="/shop" className={styles.secondaryBtn}>
+                Continue shopping
+              </Link>
+              <button
+                type="button"
+                className={styles.logoutBtn}
+                onClick={handleSignOut}
+              >
+                <LogOut size={18} strokeWidth={1.75} aria-hidden />
+                Log out
+              </button>
             </div>
           )}
         </div>

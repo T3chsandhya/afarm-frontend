@@ -444,6 +444,49 @@ a.orderLineLink:hover {
   gap: 10px;
 }
 
+.accordionTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: default;
+  color: inherit;
+}
+
+.accordionChevron {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform 0.22s ease;
+  display: none;
+}
+
+.accordionBody {
+  display: block;
+}
+
+.accordionBodyCollapsed {
+  /* no-op on desktop — collapsed class only applied when mobile layout is active */
+}
+
+.desktopOnlyAction {
+  display: inline-flex;
+}
+
+.mobileBottomActions {
+  display: none;
+}
+
+.addressPanelAction {
+  margin-top: 16px;
+}
+
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
@@ -456,5 +499,90 @@ a.orderLineLink:hover {
   .metaRow {
     grid-template-columns: 1fr;
     gap: 2px;
+  }
+
+  .card {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .cardHead {
+    margin-bottom: 0;
+    padding: 16px clamp(16px, 4vw, 20px);
+    border-bottom: 1px solid transparent;
+  }
+
+  .cardHead:has(+ .accordionBody:not(.accordionBodyCollapsed)) {
+    border-bottom-color: var(--border-light, #dceee2);
+  }
+
+  .accordionTrigger {
+    cursor: pointer;
+  }
+
+  .accordionChevron {
+    display: block;
+  }
+
+  .accordionChevronOpen {
+    transform: rotate(180deg);
+  }
+
+  .accordionBody {
+    padding: 16px clamp(16px, 4vw, 20px) 20px;
+  }
+
+  .accordionBodyCollapsed {
+    display: none;
+  }
+
+  .desktopOnlyAction {
+    display: none;
+  }
+
+  .sideActions {
+    display: none;
+  }
+
+  .mobileBottomActions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 8px;
+  }
+
+  .mobileBottomActions .secondaryBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .addressPanelAction {
+    width: 100%;
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  .logoutBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid #fecaca;
+    background: #fff5f5;
+    color: #b91c1c;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .logoutBtn:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
   }
 }

@@ -521,7 +521,9 @@ export default function CheckoutScreen() {
             </p>
           </div>
 
-          <div className={styles.layout}>
+          <div
+            className={`${styles.layout} ${step === 4 ? styles.layoutStep4 : ''}`}
+          >
             <div className={styles.formsColumn}>
               <nav className={styles.stepper} aria-label="Checkout progress">
                 {CHECKOUT_STEPS.map(({ num, label }) => (
@@ -769,69 +771,77 @@ export default function CheckoutScreen() {
               )}
 
               {step === 4 && (
-                <section className={styles.card}>
-                  <h2 className={styles.cardTitle}>Step 4 — Payment method</h2>
-                  <div className={styles.payOptions}>
-                    <label
-                      className={`${styles.payOption} ${
-                        paymentMethod === 'prepaid' ? styles.payOptionActive : ''
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        checked={paymentMethod === 'prepaid'}
-                        onChange={() => setPaymentMethod('prepaid')}
+                <>
+                  <section className={`${styles.card} ${styles.step4Title}`}>
+                    <h2 className={styles.cardTitle}>Step 4 — Payment method</h2>
+                  </section>
+                  <section className={`${styles.card} ${styles.step4Pay}`}>
+                    <div className={styles.payOptions}>
+                      <label
+                        className={`${styles.payOption} ${
+                          paymentMethod === 'prepaid' ? styles.payOptionActive : ''
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          checked={paymentMethod === 'prepaid'}
+                          onChange={() => setPaymentMethod('prepaid')}
+                        />
+                        <span>
+                          <strong>Pay Online</strong>
+                          <small>
+                            {paymentConfig?.configured
+                              ? `Secure payment via ${
+                                  paymentConfig.provider === 'razorpay' ? 'Razorpay' : 'PayU'
+                                }`
+                              : 'Online gateway not configured yet'}
+                          </small>
+                        </span>
+                      </label>
+                      <label
+                        className={`${styles.payOption} ${
+                          paymentMethod === 'cod' ? styles.payOptionActive : ''
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          checked={paymentMethod === 'cod'}
+                          onChange={() => setPaymentMethod('cod')}
+                        />
+                        <span>
+                          <strong>Cash on Delivery</strong>
+                          <small>Pay when your order arrives</small>
+                        </span>
+                      </label>
+                    </div>
+                    <div className={styles.stepActions}>
+                      <button
+                        type="button"
+                        className={styles.secondaryBtn}
+                        onClick={() => setStep(3)}
+                      >
+                        Back
+                      </button>
+                      <ShopNowButton
+                        as="button"
+                        type="button"
+                        text={
+                          submitting
+                            ? 'Please wait…'
+                            : paymentMethod === 'cod'
+                              ? 'Place COD Order'
+                              : 'Pay Online'
+                        }
+                        variant="onLight"
+                        disabled={submitting}
+                        showArrow={!submitting}
+                        onClick={handlePlaceOrder}
                       />
-                      <span>
-                        <strong>Pay Online</strong>
-                        <small>
-                          {paymentConfig?.configured
-                            ? `Secure payment via ${
-                                paymentConfig.provider === 'razorpay' ? 'Razorpay' : 'PayU'
-                              }`
-                            : 'Online gateway not configured yet'}
-                        </small>
-                      </span>
-                    </label>
-                    <label
-                      className={`${styles.payOption} ${
-                        paymentMethod === 'cod' ? styles.payOptionActive : ''
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        checked={paymentMethod === 'cod'}
-                        onChange={() => setPaymentMethod('cod')}
-                      />
-                      <span>
-                        <strong>Cash on Delivery</strong>
-                        <small>Pay when your order arrives</small>
-                      </span>
-                    </label>
-                  </div>
-                  <div className={styles.stepActions}>
-                    <button type="button" className={styles.secondaryBtn} onClick={() => setStep(3)}>
-                      Back
-                    </button>
-                    <ShopNowButton
-                      as="button"
-                      type="button"
-                      text={
-                        submitting
-                          ? 'Please wait…'
-                          : paymentMethod === 'cod'
-                            ? 'Place COD Order'
-                            : 'Pay Online'
-                      }
-                      variant="onLight"
-                      disabled={submitting}
-                      showArrow={!submitting}
-                      onClick={handlePlaceOrder}
-                    />
-                  </div>
-                </section>
+                    </div>
+                  </section>
+                </>
               )}
             </div>
 

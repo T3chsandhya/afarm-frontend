@@ -105,7 +105,7 @@ export default function AdminSettingsPage() {
                     settings.otp_enabled ? styles.statusOn : styles.statusOff
                   }
                 >
-                  {settings.otp_enabled ? 'Active' : 'Check RENFLAIR + OTP_DEBUG=false'}
+                  {settings.otp_enabled ? 'Active' : 'Set EXOTEL_* env vars + OTP_DEBUG=false'}
                 </span>
               </div>
               <div className={styles.statusItem}>

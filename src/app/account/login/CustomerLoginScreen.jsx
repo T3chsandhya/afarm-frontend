@@ -196,13 +196,35 @@ export default function CustomerLoginScreen() {
   const brandBlock = (
     <div className={styles.brandInner}>
       <p className={styles.brandTitle}>AFARM</p>
-      <div className={styles.collectiveRow}>
-        <span className={styles.collectiveLine} aria-hidden="true" />
-        <span className={styles.collectiveLabel}>Collective</span>
-        <span className={styles.collectiveLine} aria-hidden="true" />
+      <div className={styles.farmAccent} aria-hidden="true">
+        <span className={styles.farmAccentLine} />
+        <svg className={styles.farmAccentIcon} viewBox="0 0 64 48" fill="none">
+          <path
+            d="M10 42V18l6-8 6 8v24M22 42V14l8-10 8 10v28"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M22 42c0-6 4-10 10-10s10 4 10 10"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M44 38h14v4H44zM48 22v16M52 18v20M56 24v14"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <span className={styles.farmAccentLine} />
       </div>
-      <div className={styles.beadDivider} aria-hidden="true" />
-      <p className={styles.brandTagline}>Crafted by Tradition, Worn by the World</p>
+      <p className={styles.brandTagline}>
+        Farm-direct from Maharashtra&apos;s FPOs — fresh harvests, fair value, delivered to you.
+      </p>
     </div>
   );
 

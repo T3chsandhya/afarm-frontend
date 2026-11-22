@@ -79,8 +79,8 @@ function IconAuthenticCraft() {
 const ITEMS = [
   { id: 'secure', label: 'Secure Payment', Icon: IconSecurePayment },
   { id: 'delivery', label: 'Fast Delivery', Icon: IconFastDelivery },
-  { id: 'artisans', label: 'Artisan Support', Icon: IconArtisanSupport },
-  { id: 'authentic', label: 'Authentic Craft', Icon: IconAuthenticCraft },
+  { id: 'fpo', label: 'FPO Farmer Support', Icon: IconArtisanSupport },
+  { id: 'fresh', label: 'Farm-Fresh Quality', Icon: IconAuthenticCraft },
 ];
 
 export default function PdpTrustIcons({ className = '' }) {

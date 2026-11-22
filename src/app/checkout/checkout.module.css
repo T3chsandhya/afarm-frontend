@@ -371,6 +371,26 @@
   box-shadow: inset 0 0 0 1px var(--primary);
 }
 
+/* Desktop: step 4 title + payment blocks read as one card in the left column */
+@media (min-width: 901px) {
+  .step4Title {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: clamp(12px, 2vw, 16px);
+  }
+
+  .step4Title + .step4Pay {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .step4Title .cardTitle,
+  .step4Pay .cardTitle {
+    margin: 0;
+  }
+}
+
 .summaryPanel {
   border: 1px solid #e2e8f0;
   background: #fafafa;
@@ -593,6 +613,54 @@
 
   .summaryPanel {
     position: static;
+  }
+
+  /* Step 4 mobile: title → order summary → pay online / COD */
+  .layoutStep4 {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(20px, 4vw, 28px);
+    width: 100%;
+  }
+
+  .layoutStep4 .formsColumn {
+    display: contents;
+  }
+
+  .layoutStep4 .stepper,
+  .layoutStep4 .step4Title,
+  .layoutStep4 .step4Pay,
+  .layoutStep4 .summaryPanel {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .layoutStep4 .step4Title .cardTitle {
+    margin-bottom: 0;
+  }
+
+  .layoutStep4 .stepper {
+    order: 1;
+  }
+
+  .layoutStep4 .step4Title {
+    order: 2;
+  }
+
+  .layoutStep4 .summaryPanel {
+    order: 3;
+  }
+
+  .layoutStep4 .step4Pay {
+    order: 4;
+  }
+
+  .layoutStep4 .payOptions,
+  .layoutStep4 .payOption {
+    width: 100%;
   }
 }
 
