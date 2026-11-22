@@ -12,6 +12,13 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+
+.priceFrom {
+  font-weight: 500;
+  font-size: 0.82em;
+  color: #64748b;
+  letter-spacing: 0.02em;
+}
 .whatsappBtn {
   flex: 0 0 38px;
   min-height: 38px;

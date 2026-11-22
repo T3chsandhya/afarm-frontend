@@ -8,6 +8,10 @@ import ColorSwatches, {
   productColorHref,
   resolveCardImages,
 } from '@/components/ColorSwatches/ColorSwatches';
+import {
+  getLowestVariantOffer,
+  hasSelectableVariants,
+} from '@/lib/productPricing';
 import cardStyles from './ProductCard.module.css';
 
 const resolveImageUrl = (url) => {
@@ -49,9 +53,31 @@ export default function ProductCard({
     }
     return base;
   })();
+  const variantOptions = hasSelectableVariants(product);
+  const lowestOffer = useMemo(
+    () => (variantOptions ? getLowestVariantOffer(product) : null),
+    [product, variantOptions]
+  );
+  const displayPrice = variantOptions && lowestOffer
+    ? lowestOffer.price
+    : product.price;
+  const displayMrp =
+    variantOptions && lowestOffer?.mrp != null
+      ? lowestOffer.mrp
+      : product.mrp;
   const hasDiscount =
-    product.mrp != null && Number(product.mrp) > Number(product.price);
+    displayMrp != null && Number(displayMrp) > Number(displayPrice);
   const hasHoverImage = Boolean(hoverImage);
+
+  const handleAddClick = (e) => {
+    if (variantOptions) {
+      e.preventDefault();
+      e.stopPropagation();
+      router.push(href);
+      return;
+    }
+    if (onAddToBag) onAddToBag(e, product, activeSwatch);
+  };
 
   const itemsWithSelection = swatches.map((s) => ({
     ...s,
@@ -120,19 +146,28 @@ export default function ProductCard({
           )}
           <h3 className={styles.productName}>{product.name}</h3>
           <div className={styles.productPricing}>
-            <span className={styles.productPrice}>{formatPrice(product.price)}</span>
+            <span className={styles.productPrice}>
+              {variantOptions && lowestOffer ? (
+                <>
+                  <span className={cardStyles.priceFrom}>From </span>
+                  {formatPrice(displayPrice)}
+                </>
+              ) : (
+                formatPrice(displayPrice)
+              )}
+            </span>
             {hasDiscount && (
-              <span className={styles.productMrp}>{formatPrice(product.mrp)}</span>
+              <span className={styles.productMrp}>{formatPrice(displayMrp)}</span>
             )}
           </div>
         </Link>
 
         <div className={styles.productCardActions}>
-          {onAddToBag ? (
+          {onAddToBag || variantOptions ? (
             <button
               type="button"
               className={styles.productBuyNowBtn}
-              onClick={(e) => onAddToBag(e, product, activeSwatch)}
+              onClick={handleAddClick}
             >
               Add to Cart
             </button>

@@ -517,6 +517,13 @@ export default function AddProductPage() {
                 <div className={styles.optionsList}>
                   {variant.options.map((opt, oIndex) => (
                     <div key={oIndex} className={styles.optionRow}>
+                      <div className={styles.optionRowHeader}>
+                        <span className={styles.optionRowTitle}>
+                          Option {oIndex + 1}
+                          {variant.name?.trim() ? ` · ${variant.name}` : ''}
+                        </span>
+                        <span className={styles.optionRowHint}>One purchasable choice</span>
+                      </div>
                       <div className={styles.formGroup}>
                         <label className={styles.formLabel}>Option</label>
                         <input
